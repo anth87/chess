@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5 — Philidor Exchange: Kingside Storm</title>
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 5 · Philidor Exchange as White</p>
+  <h1>Philidor Exchange: Kingside Storm</h1>
+  <p class="meta">~10 min · One tangible win: a 6-step setup after 4.Nxd4 without knight-dance delays</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>Your leak map flags the <strong>Philidor Exchange</strong> as your top White loss cluster — five losses in the recent sample. In your <strong>win vs LordPablito</strong> you developed with Bf4, castled long by move 9, and crushed with <strong>11.g4</strong>. In your <strong>loss vs sameertopno</strong> you played <strong>5.Nb5</strong> and retreated to <strong>a3</strong>, burning two tempos while Black played …Be6 and …Nc6 with tempo.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Line: <a href="https://www.chess.com/openings/Philidor-Defense-Exchange-Variation-4.Nxd4">Chess.com — Philidor Exchange 4.Nxd4</a></p>
+
+  <h2>Your 6-step mantra (3+0)</h2>
+  <div class="insight">
+    <strong>Bf4 · Nc3 · Qd2 · f3 · O-O-O · g4.</strong> Develop the light-squared bishop, castle long by move 9–10, then storm with g4/h4. Only play a3 when Black pins with …Bb4. Do not chase …c5 with Nb5 early.
+  </div>
+  <p>Keep the card: <a href="../reference/philidor-white-plan.html">Philidor Exchange White plan card</a>.</p>
+
+  <h2>The setup that worked — your win</h2>
+  <div class="moves">1.e4 <strong>e5</strong> 2.Nf3 <strong>d6</strong> 3.d4 <strong>exd4</strong> 4.Nxd4 <strong>Be7</strong> 5.Bf4 <strong>Nf6</strong> 6.Nc3 <strong>O-O</strong> 7.Qd2 <strong>Bd7</strong> 8.f3 <strong>Nc6</strong> 9.O-O-O</div>
+
+  <div class="board-wrap">
+    <div id="board-win"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 e5 Nf3 d6 d4 exd4 Nxd4 Be7 Bf4 Nf6 Nc3 O-O Qd2 Bd7 f3 Nc6 O-O-O"
+         data-fen="r2q1rk1/pppbbppp/2np1n2/8/3NPB2/2N2P2/PPPQ2PP/2KR1B1R b - - 2 9"
+         data-highlight="c1,d1,f1,f3,d2,f4"
+         data-arrows='[{"from":"g2","to":"g4"}]'
+         data-caption="After &lt;strong&gt;9.O-O-O&lt;/strong&gt; — king safe on c1, rook on d1. Next &lt;strong&gt;11.g4&lt;/strong&gt; kicks off the kingside storm."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Philidor Exchange after 9.O-O-O in anth87 win">
+    </div>
+  </div>
+  <p class="cite">Position from your win vs LordPablito · <a href="https://www.chess.com/game/live/148089478716">2026-01-16</a> · verified via chess.js</p>
+
+  <p>Black's king is still in the centre and your pieces aim at the kingside. You followed with <strong>11.g4</strong>, won the b5 pawn, and rolled the attack down the file — exactly the plan your leak map says you need as a default.</p>
+
+  <h2>What went wrong — your loss vs sameertopno</h2>
+  <p>Same Exchange start, but move 5 was <strong>5.Nb5</strong> chasing …c5 instead of <strong>5.Bf4</strong> and <strong>6.Nc3</strong>. After …a6 you retreated to <strong>6.Na3</strong> — a knight on the rim with no follow-up. Black developed …Be6, …Nc6, and castled long while you were still untangling.</p>
+
+  <div class="board-wrap">
+    <div id="board-mistake"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 e5 Nf3 d6 d4 exd4 Nxd4 c5 Nb5 a6 N5a3"
+         data-fen="rnbqkbnr/1p3ppp/p2p4/2p5/4P3/N7/PPP2PPP/RNBQKB1R b KQkq - 1 6"
+         data-highlight="a3,c3,f4"
+         data-arrows='[{"from":"c1","to":"f4"}]'
+         data-caption="After &lt;strong&gt;6.Na3&lt;/strong&gt; — wasted tempos. Play &lt;strong&gt;5.Bf4&lt;/strong&gt; and &lt;strong&gt;6.Nc3&lt;/strong&gt;; keep the knight on c3, not the rim."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Philidor Exchange after knight dance in anth87 loss">
+    </div>
+  </div>
+  <p class="cite">Position from your loss vs sameertopno · <a href="https://www.chess.com/game/live/166601419824">2026-03-29</a> · verified via chess.js</p>
+
+  <p>The rule: <strong>Nc3 before tactics</strong>. Finish Bf4 · Qd2 · f3 · O-O-O, then g4 — the same rhythm that beat LordPablito. Save Nb5/Nxd6 tricks for when Black has already fallen behind in development.</p>
+  <p class="cite">Primary reading: <a href="https://www.chess.com/openings/Philidor-Defense-Exchange-Variation-4.Nxd4">Chess.com — Philidor Exchange overview</a></p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="1">
+      <p>1. After 4.Nxd4 Be7, what should White play on move 5?</p>
+      <div class="options">
+        <button type="button">Jump Nb5 immediately to chase Black's c5 pawn push</button>
+        <button type="button">Develop Bf4 staking the centre before any knight tricks</button>
+        <button type="button">Push f3 first to block the e7 bishop on the diagonal</button>
+        <button type="button">Castle long at once before finishing minor-piece development</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>2. When should White castle long in the Philidor Exchange?</p>
+      <div class="options">
+        <button type="button">By move nine or ten once Bf4, Qd2, and f3 are all placed</button>
+        <button type="button">Only after Black castles kingside and finishes full development</button>
+        <button type="button">Never — kingside castling is always safer in these sharp lines</button>
+        <button type="button">Not until move fifteen when the centre pawns are fully fixed</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>3. In your game vs sameertopno, what was wrong with 5.Nb5 and 6.Na3?</p>
+      <div class="options">
+        <button type="button">The knight dance wasted two tempos while Black caught up</button>
+        <button type="button">Nb5 is always wrong in the Exchange no matter what Black plays</button>
+        <button type="button">You should have played Na3 on move two instead of on move six</button>
+        <button type="button">The error was Na3 before kingside castle instead of long castle first</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as White; if you see 1…e5 2…d6 3…exd4, name the mantra before move 8. Review one Philidor loss and check whether Nb5 appeared before Nc3.<br><br>
+    <strong>Previous:</strong> <a href="0004-owens-white-long-castle.html">Lesson 4 — Owen's Defense: long castle first</a><br>
+    <strong>Next session:</strong> <a href="0006-berlin-zukertort-centre-first.html">Lesson 6 — Berlin / Zukertort: centre first</a>.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to compare your other Philidor losses, drill Bf4 vs Be3 lines, or walk through when Ndb5/Nxd6 is actually justified.
+  </div>
+
+  <footer>
+    <a href="../reference/philidor-white-plan.html">Philidor Exchange White plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. Nb5 before Bf4/Nc3 lets Black equalize with …a6 and …c5.",
+       "Correct. Bf4 is the first step of your Exchange mantra.",
+       "Wrong. f3 comes after Bf4 and Nc3 — develop pieces first.",
+       "Wrong. Long castle comes after Bf4, Qd2, and f3 are in place."],
+      ["Correct. O-O-O by move 9–10 is your LordPablito template.",
+       "Wrong. You do not wait for Black — seize the initiative early.",
+       "Wrong. Long castle is thematic here; your king is safe on c1.",
+       "Wrong. Fifteen moves is far too slow for 3+0 blitz."],
+      ["Correct. …a6 and …Be6 meant the knight dance solved nothing.",
+       "Wrong. Nb5 can work later — the issue was doing it before development.",
+       "Wrong. Na3 on move 2 would be even slower.",
+       "Wrong. The problem was the Nb5–Na3 dance, not castling side."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Philidor plan locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play one Exchange.' : 'Re-read the lesson and ask your teacher to drill Bf4 vs Nb5.'}`;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 7 — Caro-Kann Tartakower: Long Castle First</title>
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 7 · Caro-Kann Tartakower as White</p>
+  <h1>Caro-Kann Tartakower: Long Castle First</h1>
+  <p class="meta">~10 min · One tangible win: a 6-step setup vs 6…Bd6 without the …Bg4 pin</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>A fresh <strong>12-month pull</strong> (1,609 blitz games, Jun 2025–Jun 2026) shows the <strong>Caro-Kann Tartakower/Forgacs</strong> line as your <strong>#1 White loss cluster</strong> — 16 losses in the 6…Bd6 branch alone, ahead of Petroff, Old Steinitz, and the lines from Lessons 4–6. In your <strong>win vs Tuxeedoe</strong> you played <strong>Qd2 before Nf3</strong>, castled long by move 9, traded on d3, and rolled with <strong>13.g4</strong>. In your <strong>loss vs KillerKnight999</strong> you played <strong>7.Nf3</strong> before <strong>Qd2</strong> — Black's <strong>…Bg4</strong> pin forced <strong>Bxf3</strong> and wrecked your kingside pawns.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> (12-mo refresh) · Line: <a href="https://www.chess.com/openings/Caro-Kann-Defense-Tartakower-Forgacs-Variation">Chess.com — Tartakower/Forgacs</a></p>
+
+  <h2>Your 6-step mantra (3+0)</h2>
+  <div class="insight">
+    <strong>Be3 · Qd2 · O-O-O · Bd3 · Nf3 · g4.</strong> After 6.Bc4 Bd6, develop Be3 and Qd2, castle long by move 9, trade bishops with Bd3 when …Bf5 appears, then Nf3 and g4. Never play Nf3 before Qd2 when …Bg4 is possible.
+  </div>
+  <p>Keep the card: <a href="../reference/caro-tartakower-white-plan.html">Caro-Kann Tartakower White plan card</a>.</p>
+
+  <h2>The setup that worked — your win</h2>
+  <div class="moves">1.e4 <strong>c6</strong> 2.d4 <strong>d5</strong> 3.Nc3 <strong>dxe4</strong> 4.Nxe4 <strong>Nf6</strong> 5.Nxf6+ <strong>exf6</strong> 6.Bc4 <strong>Bd6</strong> 7.Be3 <strong>O-O</strong> 8.Qd2 <strong>Bf5</strong> 9.O-O-O</div>
+
+  <div class="board-wrap">
+    <div id="board-win"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 c6 d4 d5 Nc3 dxe4 Nxe4 Nf6 Nxf6 exf6 Bc4 Bd6 Be3 O-O Qd2 Bf5 O-O-O"
+         data-fen="rn1q1rk1/pp3ppp/2pb1p2/5b2/2BP4/4B3/PPPQ1PPP/2KR2NR b - - 7 9"
+         data-highlight="c4,e3,d2,c1,d1,d3"
+         data-arrows='[{"from":"c4","to":"d3"}]'
+         data-caption="After &lt;strong&gt;9.O-O-O&lt;/strong&gt; — king safe on c1. When …Bf5 stays, &lt;strong&gt;10.Bd3&lt;/strong&gt; trades and keeps the queen on the attack."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Caro-Kann Tartakower after 9.O-O-O in anth87 win">
+    </div>
+  </div>
+  <p class="cite">Position from your win vs Tuxeedoe · <a href="https://www.chess.com/game/live/164665469068">2026-02-14</a> · verified via chess.js</p>
+
+  <p>Black's f-pawns are doubled and weak — your job is to attack before Black untangles with …Nd7 and …Re8. You followed with <strong>10.Bd3 Bxd3 11.Qxd3</strong>, then <strong>13.g4</strong> and a kingside roll that won on the clock.</p>
+
+  <h2>What went wrong — your loss vs KillerKnight999</h2>
+  <p>Same Tartakower structure, but move 7 was <strong>7.Nf3</strong> instead of <strong>7.Be3</strong> and <strong>8.Qd2</strong>. Black played <strong>…Bg4</strong>, and after <strong>10…Bxf3</strong> your kingside pawn structure was shattered. You never got the same attacking grip Tuxeedoe had.</p>
+
+  <div class="board-wrap">
+    <div id="board-mistake"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 c6 d4 d5 Nc3 dxe4 Nxe4 Nf6 Nxf6 exf6 Bc4 Bd6 Nf3 O-O Be3 Re8 Qd2 Bg4"
+         data-fen="rn1qr1k1/pp3ppp/2pb1p2/8/2BP2b1/4BN2/PPPQ1PPP/R3K2R w KQ - 8 10"
+         data-highlight="f3,g4,h3,d2"
+         data-arrows='[{"from":"h2","to":"h3"}]'
+         data-caption="After &lt;strong&gt;9…Bg4&lt;/strong&gt; — Nf3 was too early. Play &lt;strong&gt;8.Qd2&lt;/strong&gt; and &lt;strong&gt;9.O-O-O&lt;/strong&gt; first; &lt;strong&gt;h3&lt;/strong&gt; stops the pin."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Caro-Kann Tartakower after Bg4 pin in anth87 loss">
+    </div>
+  </div>
+  <p class="cite">Position from your loss vs KillerKnight999 · <a href="https://www.chess.com/game/live/164418809704">2026-02-08</a> · verified via chess.js</p>
+
+  <p>The rule: <strong>Qd2 before Nf3</strong> in the Tartakower. Finish Be3 · Qd2 · O-O-O, then Bd3/Nf3/g4 — the same rhythm that beat Tuxeedoe.</p>
+  <p class="cite">Primary reading: <a href="https://www.chess.com/openings/Caro-Kann-Defense-Tartakower-Forgacs-Variation">Chess.com — Tartakower/Forgacs overview</a></p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="1">
+      <p>1. After 6…Bd6 in the Tartakower, what is White's correct move order?</p>
+      <div class="options">
+        <button type="button">Nf3 immediately to develop the kingside knight with tempo</button>
+        <button type="button">Be3 and Qd2 first then O-O-O before playing Nf3</button>
+        <button type="button">Bd3 at once to trade bishops before castling either side</button>
+        <button type="button">g4 on move seven to attack before finishing development</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>2. When should White castle long in the Tartakower?</p>
+      <div class="options">
+        <button type="button">By move nine once Be3 and Qd2 are both on the board</button>
+        <button type="button">Only after Black castles kingside and finishes full development</button>
+        <button type="button">Never — kingside castling is always safer in these sharp lines</button>
+        <button type="button">Not until move fifteen when the f-pawns are fully fixed</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>3. In your game vs KillerKnight999, what was wrong with 7.Nf3?</p>
+      <div class="options">
+        <button type="button">Black's Bg4 pin forced Bxf3 and wrecked your pawn structure</button>
+        <button type="button">Nf3 is always wrong in the Tartakower no matter what Black plays</button>
+        <button type="button">You should have played Nf3 on move two instead of on move seven</button>
+        <button type="button">The error was Nf3 before kingside castle instead of long castle first</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as White; if you see 6…Bd6, name the mantra before move 9. Review one Tartakower loss and check whether Nf3 came before Qd2.<br><br>
+    <strong>Previous:</strong> <a href="0006-berlin-zukertort-centre-first.html">Lesson 6 — Berlin / Zukertort: centre first</a><br>
+    <strong>Next session:</strong> <a href="0008-pirc-geller-strike-c5.html">Lesson 8 — Pirc Geller: strike with …c5</a>.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to compare your other Tartakower losses, drill Qd2 vs Nf3 timing, or walk through when Bb3 beats Bd3 after …b5.
+  </div>
+
+  <footer>
+    <a href="../reference/caro-tartakower-white-plan.html">Caro-Kann Tartakower White plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. Nf3 before Qd2 invites …Bg4 — your KillerKnight999 loss.",
+       "Correct. Be3 · Qd2 · O-O-O is your Tuxeedoe template.",
+       "Wrong. Bd3 comes after …Bf5, not before Be3/Qd2.",
+       "Wrong. g4 comes after development and long castle."],
+      ["Correct. O-O-O by move 9 is your Tuxeedoe template.",
+       "Wrong. You do not wait for Black — seize the initiative early.",
+       "Wrong. Long castle is thematic here; your king is safe on c1.",
+       "Wrong. Fifteen moves is far too slow for 3+0 blitz."],
+      ["Correct. …Bg4 and Bxf3 shattered your kingside pawns.",
+       "Wrong. Nf3 is fine after Qd2/O-O-O — the issue was move order.",
+       "Wrong. Nf3 on move 2 would be even slower.",
+       "Wrong. The problem was Nf3 before Qd2, not castling side."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Tartakower plan locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play one Tartakower.' : 'Re-read the lesson and ask your teacher to drill Qd2 vs Nf3.'}`;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

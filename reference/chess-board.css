@@ -1,0 +1,50 @@
+.chess-board {
+  width: min(100%, 420px);
+  margin: 0 auto;
+}
+
+.chess-board svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.chess-board .sq-light { fill: #f0d9b5; }
+.chess-board .sq-dark { fill: #b58863; }
+.chess-board .sq-highlight { fill: rgba(155, 199, 0, 0.45); }
+.chess-board .sq-pin { fill: rgba(139, 69, 19, 0.22); }
+
+.chess-board .coord {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  fill: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  user-select: none;
+}
+
+.chess-board .pin-line {
+  stroke: #8b4513;
+  stroke-width: 0.06;
+  stroke-dasharray: 0.15 0.1;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.chess-board .piece-glyph {
+  font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", sans-serif;
+  pointer-events: none;
+  user-select: none;
+}
+
+.chess-board-caption {
+  font-size: 0.85rem;
+  color: #555;
+  text-align: center;
+  margin-top: 0.65rem;
+}
+
+.chess-board-caption strong {
+  color: #8b4513;
+}

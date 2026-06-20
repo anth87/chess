@@ -1,0 +1,11 @@
+{
+  "gameUrl": "https://www.chess.com/game/live/169729761620",
+  "label": "anth87 vs irerie — before 11...Nxg4 mistake",
+  "moves": "d4 d6 c4 Nf6 f3 g6 e4 Bg7 Be3 O-O Qd2 Nbd7 Nc3 a6 g4 e6 h4 e5 d5 Nc5 h5",
+  "fen": "r1bq1rk1/1pp2pbp/p2p1np1/2nPp2P/2P1P1P1/2N1BP2/PP1Q4/R3KBNR b KQ - 0 11",
+  "highlights": ["h6", "h5", "g4"],
+  "arrows": [{ "from": "h7", "to": "h6" }],
+  "note": "11...h6 blunts h5; 11...Nxg4 opens the f-file and loses the initiative",
+  "verified": "2026-06-13",
+  "engine": "chess.js@1.4.0"
+}

@@ -1,0 +1,11 @@
+{
+  "gameUrl": "https://www.chess.com/game/live/169729761620",
+  "label": "anth87 vs irerie — after 10...Nc5 (KID Samisch)",
+  "moves": "d4 d6 c4 Nf6 f3 g6 e4 Bg7 Be3 O-O Qd2 Nbd7 Nc3 a6 g4 e6 h4 e5 d5 Nc5",
+  "fen": "r1bq1rk1/1pp2pbp/p2p1np1/2nPp3/2P1P1PP/2N1BP2/PP1Q4/R3KBNR w KQ - 1 11",
+  "highlights": ["c5", "e5", "d5"],
+  "arrows": [{ "from": "c5", "to": "e4" }],
+  "note": "Centre closed after ...e5 and ...Nc5 — next test is h5, answer with ...h6",
+  "verified": "2026-06-13",
+  "engine": "chess.js@1.4.0"
+}

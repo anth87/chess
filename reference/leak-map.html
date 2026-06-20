@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leak Map — anth87 Blitz</title>
+  <style>
+    :root { --text: #1a1a1a; --muted: #555; --accent: #2d5a27; --bg: #faf9f7; --border: #e0ddd6; }
+    body { font-family: "Palatino Linotype", Palatino, Georgia, serif; background: var(--bg); color: var(--text); line-height: 1.55; max-width: 40rem; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+    h1 { font-size: 1.5rem; }
+    .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 1rem; color: var(--accent); margin: 1.75rem 0 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 0.5rem 0 1rem; }
+    th, td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border); }
+    th { font-weight: 600; color: var(--muted); font-size: 0.78rem; text-transform: uppercase; }
+    .bar { display: inline-block; height: 0.55rem; background: #c44; border-radius: 2px; vertical-align: middle; }
+    .stat { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
+    .card { background: #fff; border: 1px solid var(--border); padding: 0.75rem 1rem; border-radius: 4px; }
+    .card strong { display: block; font-size: 1.4rem; color: var(--accent); }
+    .card span { font-size: 0.8rem; color: var(--muted); }
+    a { color: var(--accent); }
+    footer { margin-top: 2rem; font-size: 0.82rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <h1>Your Blitz Leak Map</h1>
+  <p class="meta">anth87 · Chess.com 3+0 · 12-month sample (1,609 games) · Refreshed 2026-06-13</p>
+
+  <div class="stat">
+    <div class="card"><strong>1705</strong><span>Current blitz</span></div>
+    <div class="card"><strong>1948</strong><span>Peak blitz</span></div>
+    <div class="card"><strong>49%</strong><span>Win rate (12 mo)</span></div>
+    <div class="card"><strong>786</strong><span>Losses (12 mo)</span></div>
+  </div>
+
+  <h2>How you lose</h2>
+  <table>
+    <tr><th>Termination</th><th>Share</th></tr>
+    <tr><td>Resigned</td><td>58% <span class="bar" style="width:5.8rem"></span></td></tr>
+    <tr><td>Checkmated</td><td>22% <span class="bar" style="width:2.2rem"></span></td></tr>
+    <tr><td>Timeout</td><td>18% <span class="bar" style="width:1.8rem"></span></td></tr>
+  </table>
+
+  <h2>Top loss openings — Black</h2>
+  <table>
+    <tr><th>Opening</th><th>Losses</th></tr>
+    <tr><td>Pirc — Classical …Bg7</td><td>20</td></tr>
+    <tr><td>Pirc — Modern / Geller</td><td>19+</td></tr>
+    <tr><td>Pirc — Main Line / 2.Bc4</td><td>14+</td></tr>
+    <tr><td>Petroff Classical</td><td>11</td></tr>
+  </table>
+
+  <h2>Top loss openings — White</h2>
+  <table>
+    <tr><th>Opening</th><th>Losses</th></tr>
+    <tr><td>Caro-Kann Tartakower 6…Bd6</td><td>16</td></tr>
+    <tr><td>Petroff Classical</td><td>11</td></tr>
+    <tr><td>Ruy Lopez Old Steinitz</td><td>11</td></tr>
+    <tr><td>Philidor Exchange</td><td>9</td></tr>
+    <tr><td>Berlin / Zukertort Gambit</td><td>9</td></tr>
+    <tr><td>Owen's Defense</td><td>7+</td></tr>
+  </table>
+
+  <h2>Lesson queue (priority)</h2>
+  <ol>
+    <li><a href="../lessons/0001-your-blitz-leak-map.html">CCT blunder-check</a> — cuts checkmates + early resignations</li>
+    <li><a href="../lessons/0002-pirc-classical-center-strike.html">Pirc Classical — …Ng4 and …c5</a></li>
+    <li><a href="../lessons/0003-kid-samisch-dont-bite-g4.html">KID Samisch — when not to take on g4</a></li>
+    <li><a href="../lessons/0004-owens-white-long-castle.html">Owen's — long castle first</a></li>
+    <li><a href="../lessons/0005-philidor-exchange-kingside-storm.html">Philidor Exchange — kingside storm</a></li>
+    <li><a href="../lessons/0006-berlin-zukertort-centre-first.html">Berlin / Zukertort — centre first</a></li>
+    <li><a href="../lessons/0007-caro-tartakower-long-castle.html">Caro-Kann Tartakower — long castle first</a></li>
+    <li><a href="../lessons/0008-pirc-geller-strike-c5.html">Pirc Geller — strike with …c5</a></li>
+  </ol>
+
+  <footer>
+    <a href="../lessons/0001-your-blitz-leak-map.html">Lesson 1</a> ·
+    <a href="cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+</body>
+</html>

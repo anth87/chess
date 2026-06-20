@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 6 — Berlin / Zukertort: Centre First</title>
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 6 · Berlin / Zukertort as White</p>
+  <h1>Berlin / Zukertort: Centre First</h1>
+  <p class="meta">~10 min · One tangible win: a 5-step setup vs 4…Bc5 without Bg5 traps</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>Your leak map flags <strong>Berlin / Zukertort sidelines</strong> as a top White loss cluster — not the famous Berlin endgame, but when Black plays <strong>4…Bc5</strong> instead. In your <strong>win vs francescwow</strong> you played <strong>c3 · Re1 · h3</strong>, then struck with <strong>8.d4</strong> and won the centre. In your <strong>loss vs eggyteddy</strong> you pinned with <strong>10.Bg5</strong> and retreated to <strong>11.Bh4</strong> before <strong>Nc3</strong> — Black's <strong>11…Nxd4</strong> forked your bishop and knight, and you never recovered.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Line: <a href="https://www.chess.com/openings/Ruy-Lopez-Opening-Berlin-Beverwijk-Zukertort-Gambit">Chess.com — Zukertort Gambit</a></p>
+
+  <h2>Your 5-step mantra (3+0)</h2>
+  <div class="insight">
+    <strong>c3 · Re1 · h3 · d4 · Nc3.</strong> Stabilize with c3, pressure e5 with Re1, stop …Bg4 with h3, then open the centre with d4. Develop Nc3 before Bg5 when …Nxd4 is possible.
+  </div>
+  <p>Keep the card: <a href="../reference/berlin-zukertort-white-plan.html">Berlin / Zukertort White plan card</a>.</p>
+
+  <h2>The setup that worked — your win</h2>
+  <div class="moves">1.e4 <strong>e5</strong> 2.Nf3 <strong>Nc6</strong> 3.Bb5 <strong>Nf6</strong> 4.O-O <strong>Bc5</strong> 5.c3 <strong>O-O</strong> 6.Re1 <strong>d6</strong> 7.h3 <strong>h6</strong></div>
+
+  <div class="board-wrap">
+    <div id="board-win"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 e5 Nf3 Nc6 Bb5 Nf6 O-O Bc5 c3 O-O Re1 d6 h3 h6"
+         data-fen="r1bq1rk1/ppp2pp1/2np1n1p/1Bb1p3/4P3/2P2N1P/PP1P1PP1/RNBQR1K1 w - - 0 8"
+         data-highlight="c3,e1,h3,d2,f1"
+         data-arrows='[{"from":"d2","to":"d4"}]'
+         data-caption="After &lt;strong&gt;7…h6&lt;/strong&gt; — kingside safe. Next &lt;strong&gt;8.d4&lt;/strong&gt; strikes the centre."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Zukertort Gambit after 7.h6 in anth87 win">
+    </div>
+  </div>
+  <p class="cite">Position from your win vs francescwow · <a href="https://www.chess.com/game/live/165835685838">2026-02-28</a> · verified via chess.js</p>
+
+  <p>You followed with <strong>8.d4 exd4 9.cxd4 Bb6 10.Bxc6</strong>, opened the e-file, and won material on e5 — the patient setup paid off before any tactics.</p>
+
+  <h2>What went wrong — your loss vs eggyteddy</h2>
+  <p>Same Zukertort start, but after <strong>9…Bd7</strong> you played <strong>10.Bg5</strong> and <strong>11.Bh4</strong> without <strong>Nc3</strong>. Black's knight jumped to <strong>d4</strong>, forking the bishop on h4 and the knight on f3. You traded into a lost endgame instead of keeping the initiative.</p>
+
+  <div class="board-wrap">
+    <div id="board-mistake"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 e5 Nf3 Nc6 Bb5 Nf6 O-O Bc5 c3 d6 h3 Bb6 Re1 O-O d4 exd4 cxd4 Bd7"
+         data-fen="r2q1rk1/pppb1ppp/1bnp1n2/1B6/3PP3/5N1P/PP3PP1/RNBQR1K1 w - - 1 10"
+         data-highlight="b1,c3,d4,e1"
+         data-arrows='[{"from":"b1","to":"c3"}]'
+         data-caption="After &lt;strong&gt;9…Bd7&lt;/strong&gt; — play &lt;strong&gt;10.Nc3&lt;/strong&gt; before Bg5. …Nxd4 forks Bh4 and the f3 knight."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Zukertort Gambit before Nc3 mistake in anth87 loss">
+    </div>
+  </div>
+  <p class="cite">Position from your loss vs eggyteddy · <a href="https://www.chess.com/game/live/165135612814">2026-02-22</a> · verified via chess.js</p>
+
+  <p>The rule: <strong>Nc3 before Bg5</strong> when the d4 pawn is fixed and …Nxd4 is possible. Finish c3 · Re1 · h3 · d4 first — the same rhythm that beat francescwow.</p>
+  <p class="cite">Primary reading: <a href="https://www.chess.com/openings/Ruy-Lopez-Opening-Berlin-Beverwijk-Zukertort-Gambit">Chess.com — Beverwijk / Zukertort overview</a></p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="2">
+      <p>1. After 4…Bc5 in the Zukertort sideline, what is White's first stabilizing move?</p>
+      <div class="options">
+        <button type="button">Push d4 immediately to open the centre before castling</button>
+        <button type="button">Play Bg5 to pin the f6 knight before any pawn moves</button>
+        <button type="button">Play c3 to support d4 and keep the centre under control</button>
+        <button type="button">Trade on c6 at once with Bxc6 to damage Black's pawn structure</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>2. When should White play d4 in this line?</p>
+      <div class="options">
+        <button type="button">After Re1 and h3 are in place and the kingside is safe</button>
+        <button type="button">On move four before Black has finished developing pieces</button>
+        <button type="button">Only after Black castles queenside and pushes the a-pawn</button>
+        <button type="button">Not until move fifteen when all minor pieces are fully traded</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>3. In your game vs eggyteddy, what was wrong with 10.Bg5 before Nc3?</p>
+      <div class="options">
+        <button type="button">Black's Nxd4 forked Bh4 and the f3 knight winning material</button>
+        <button type="button">Bg5 is always wrong in the Zukertort no matter what Black plays</button>
+        <button type="button">You should have played Bg5 on move two instead of on move ten</button>
+        <button type="button">The error was Bg5 before kingside castle instead of long castle first</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as White; if you see 4…Bc5, name the mantra before move 8. Review one Berlin/Zukertort loss and check whether Bg5 came before Nc3.<br><br>
+    <strong>Previous:</strong> <a href="0005-philidor-exchange-kingside-storm.html">Lesson 5 — Philidor Exchange: kingside storm</a><br>
+    <strong>Next session:</strong> <a href="0007-caro-tartakower-long-castle.html">Lesson 7 — Caro-Kann Tartakower: long castle first</a>.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to compare your other Zukertort losses, drill Nc3 vs Bg5 timing, or preview when Bxc6 is worth playing.
+  </div>
+
+  <footer>
+    <a href="../reference/berlin-zukertort-white-plan.html">Berlin / Zukertort White plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. d4 without c3/Re1/h3 lets …Bb4 and …Bg4 equalize.",
+       "Wrong. Bg5 before c3/d4 invites …Nxd4 tactics.",
+       "Correct. c3 is the first step of your Zukertort mantra.",
+       "Wrong. Bxc6 can come later — stabilize with c3 first."],
+      ["Correct. d4 after Re1 and h3 is your francescwow template.",
+       "Wrong. d4 on move 4 is premature — Black develops with tempo.",
+       "Wrong. You do not wait for queenside play — strike the centre.",
+       "Wrong. Fifteen moves is far too slow for 3+0 blitz."],
+      ["Correct. …Nxd4 forked Bh4 and Nf3 — Nc3 prevents this.",
+       "Wrong. Bg5 is fine after Nc3 — the issue was move order.",
+       "Wrong. Bg5 on move 2 would be even slower.",
+       "Wrong. The problem was Bg5 before Nc3, not castling side."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Zukertort plan locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play one Zukertort.' : 'Re-read the lesson and ask your teacher to drill Nc3 vs Bg5.'}`;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

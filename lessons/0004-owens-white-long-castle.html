@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4 — Owen's Defense: Long Castle First</title>
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 4 · Owen's as White</p>
+  <h1>Owen's Defense: Long Castle First</h1>
+  <p class="meta">~10 min · One tangible win: a 4-step setup vs 1…b6 without burning tempo</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>Your leak map flags <strong>Owen's Defense</strong> (1…b6) as a top White loss cluster — offbeat, but you face it often enough that guessing costs rating. In your <strong>win vs ssharipov</strong> you castled long by move 6 and steamrolled the kingside. In your <strong>loss vs jirias</strong> you played <strong>4.a3</strong> before Black had pinned on c3, lost a tempo, and never got the same grip.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Line: <a href="https://www.chess.com/openings/Owens-Defense-2.d4-Bb7-3.Nc3-e6">Chess.com — Owen's 2.d4 Bb7 3.Nc3 e6</a></p>
+
+  <h2>Your 4-step mantra (3+0)</h2>
+  <div class="insight">
+    <strong>Be3 · Qd2 · O-O-O · Bb5.</strong> Develop the dark-squared bishop, connect rooks with Qd2, castle long by move 6–7, then pin with Bb5. Only play a3 if Black has played …Bb4.
+  </div>
+  <p>Keep the card: <a href="../reference/owens-white-plan.html">Owen's White plan card</a>.</p>
+
+  <h2>The setup that worked — your win</h2>
+  <div class="moves">1.e4 <strong>b6</strong> 2.d4 <strong>Bb7</strong> 3.Nc3 <strong>e6</strong> 4.Be3 <strong>d6</strong> 5.Qd2 <strong>Qd7</strong> 6.O-O-O</div>
+
+  <div class="board-wrap">
+    <div id="board-win"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 b6 d4 Bb7 Nc3 e6 Be3 d6 Qd2 Qd7 O-O-O"
+         data-fen="rn2kbnr/pbpq1ppp/1p1pp3/8/3PP3/2N1B3/PPPQ1PPP/2KR1BNR b kq - 3 6"
+         data-highlight="e3,d2,c1,d1,f1"
+         data-arrows='[{"from":"d1","to":"d6"}]'
+         data-caption="After &lt;strong&gt;6.O-O-O&lt;/strong&gt; — king safe on c1, rook on d1 eyes the centre. When …Nc6 appears, &lt;strong&gt;7.Bb5&lt;/strong&gt; is the f1 bishop."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Owen's after 6.O-O-O in anth87 win">
+    </div>
+  </div>
+  <p class="cite">Position from your win vs ssharipov · <a href="https://www.chess.com/game/live/165392932390">2026-03-02</a> · verified via chess.js</p>
+
+  <p>Black's bishop on b7 is hemmed in by your e-pawn — it rarely becomes active. Your job is to finish development and attack before Black untangles with …Be7 and …Nf6. You followed with <strong>7.Bb5</strong>, then <strong>f4</strong>, <strong>e5</strong>, and a kingside pawn storm that won on the clock.</p>
+
+  <h2>What went wrong — your loss vs jirias</h2>
+  <p>Same start, different fourth move: <strong>4.a3</strong> instead of <strong>4.Be3</strong>. Black had played <strong>4…Be7</strong>, not …Bb4 — so a3 did not address any threat. You gave Black a free tempo to finish …d6, …Nd7, and …c5 with less pressure.</p>
+
+  <div class="board-wrap">
+    <div id="board-mistake"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 b6 d4 Bb7 Nc3 e6 a3 Be7"
+         data-fen="rn1qk1nr/pbppbppp/1p2p3/8/3PP3/P1N5/1PP2PPP/R1BQKBNR w KQkq - 1 5"
+         data-highlight="a3,c1,e3"
+         data-arrows='[{"from":"c1","to":"e3"}]'
+         data-caption="After &lt;strong&gt;4.a3&lt;/strong&gt; — wasted tempo. Play &lt;strong&gt;4.Be3&lt;/strong&gt; (the &lt;strong&gt;c1&lt;/strong&gt; bishop); save a3 for when …Bb4 pins the c3 knight."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Owen's after wasted 4.a3 in anth87 loss">
+    </div>
+  </div>
+  <p class="cite">Position from your loss vs jirias · <a href="https://www.chess.com/game/live/169388691554">2026-05-29</a> · verified via chess.js</p>
+
+  <p>The rule: <strong>a3 only answers …Bb4</strong>. Otherwise Be3 immediately, Qd2, O-O-O — the same rhythm that beat ssharipov.</p>
+  <p class="cite">Primary reading: <a href="https://www.chess.com/openings/Owens-Defense">Chess.com — Owen's Defense overview</a></p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="1">
+      <p>1. After 1.e4 b6 2.d4 Bb7 3.Nc3 e6, what is White's first development move?</p>
+      <div class="options">
+        <button type="button">Play a3 to stop the c3 knight from being pinned soon</button>
+        <button type="button">Develop Be3 aiming at the kingside attack you'll build</button>
+        <button type="button">Push f3 first to block the b7 bishop on the diagonal</button>
+        <button type="button">Open the centre at once with d5 and trade central pawns</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>2. When should White castle long in Owen's?</p>
+      <div class="options">
+        <button type="button">By move six or seven once Be3 and Qd2 are both placed</button>
+        <button type="button">Only after Black castles kingside and finishes full development</button>
+        <button type="button">Never — kingside castling is always safer in these sharp lines</button>
+        <button type="button">Not until move fifteen when the centre pawns are fully fixed</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>3. In your game vs jirias, what was wrong with 4.a3?</p>
+      <div class="options">
+        <button type="button">Black had not played Bb4 so the a3 move wasted tempo</button>
+        <button type="button">a3 is always wrong in Owen's no matter what Black plays next</button>
+        <button type="button">You should have played a3 on move two instead of on move four</button>
+        <button type="button">The error was a3 before kingside castle instead of long castle first</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as White; if you see 1…b6, name the mantra before move 5. Review one Owen's loss and check whether a3 appeared before …Bb4.<br><br>
+    <strong>Previous:</strong> <a href="0003-kid-samisch-dont-bite-g4.html">Lesson 3 — KID Samisch: don't bite on g4</a><br>
+    <strong>Next session:</strong> <a href="0005-philidor-exchange-kingside-storm.html">Lesson 5 — Philidor Exchange: kingside storm</a>.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to compare your other Owen's losses, drill Be3 vs a3 timing, or walk through the f3/g4 pawn-storm after O-O-O.
+  </div>
+
+  <footer>
+    <a href="../reference/owens-white-plan.html">Owen's White plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. a3 is only for …Bb4 — Black had not pinned yet.",
+       "Correct. Be3 is the first step of your Owen's mantra.",
+       "Wrong. f3 can come later; Be3 develops faster toward the attack.",
+       "Wrong. d5 is premature — finish development and castle long first."],
+      ["Correct. O-O-O by move 6–7 is your ssharipov template.",
+       "Wrong. You do not wait for Black — seize the initiative early.",
+       "Wrong. Long castle is thematic here; your king is safe on c1.",
+       "Wrong. Fifteen moves is far too slow for 3+0 blitz."],
+      ["Correct. …Be7 meant a3 solved nothing and cost a tempo.",
+       "Wrong. a3 is fine when …Bb4 pins — the issue was timing.",
+       "Wrong. a3 on move 2 would be even slower.",
+       "Wrong. The problem was a3 without a pin, not castling side."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Owen\'s plan locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play one Owen\'s.' : 'Re-read the lesson and ask your teacher to drill Be3 vs a3.'}`;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

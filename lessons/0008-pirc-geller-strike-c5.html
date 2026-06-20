@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 8 — Pirc Geller: Strike with …c5</title>
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 8 · Pirc Geller as Black</p>
+  <h1>Pirc Geller: Strike with …c5</h1>
+  <p class="meta">~10 min · One tangible win: hit d4 before White's e5 bind takes over</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>Your 12-month leak map shows <strong>Pirc Modern / Geller</strong> as your top Black loss cluster alongside Classical Pirc — 35+ tagged losses, and in the pure <strong>4.f4</strong> branch you are nearly even (43W–45L) but drift passive too often. In your <strong>win vs Knvl</strong> you played <strong>5…c5</strong> on move 5 and won the exchange. In your <strong>loss vs rajandahal</strong> you allowed <strong>5.e5</strong>, took passively, and never played …c5 — White kept the space bind with …c6 instead.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Line: <a href="https://www.chess.com/openings/Pirc-Defense-Modern-Defense-Geller-System-2...Nf6-3.Nc3-g6">Chess.com — Pirc Geller 4.f4</a></p>
+
+  <h2>Your 5-step mantra (3+0)</h2>
+  <div class="insight">
+    <strong>Two branches:</strong> vs <strong>5.Nf3</strong> play <strong>5…c5</strong> immediately. vs <strong>5.e5</strong> play <strong>5…dxe5</strong> and …Nd5 (that part is fine) — but still look for <strong>…c5</strong> to hit d4 before passive …c6. Never let …c6 block your counterplay.
+  </div>
+  <p>Keep the card: <a href="../reference/pirc-geller-plan.html">Pirc Geller plan card</a> · Classical Pirc: <a href="../reference/pirc-classical-plan.html">Lesson 2 card</a>.</p>
+
+  <h2>The strike that worked — your win</h2>
+  <div class="moves">4.f4 <strong>Bg7</strong> 5.Nf3 <strong>c5</strong></div>
+
+  <div class="board-wrap">
+    <div id="board-win"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="e4 d6 d4 Nf6 Nc3 g6 f4 Bg7 Nf3 c5"
+         data-fen="rnbqk2r/pp2ppbp/3p1np1/2p5/3PPP2/2N2N2/PPP3PP/R1BQKB1R w KQkq - 0 6"
+         data-highlight="c5,d4,g7"
+         data-arrows='[{"from":"c5","to":"d4"}]'
+         data-caption="After &lt;strong&gt;5…c5&lt;/strong&gt; — you hit the d4 pawn. White's e5 bind never takes off."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Pirc Geller after 5...c5 in anth87 win">
+    </div>
+  </div>
+  <p class="cite">Position from your win vs Knvl · <a href="https://www.chess.com/game/live/145798115592">2025-11-21</a> · verified via chess.js</p>
+
+  <p>You followed with <strong>6.e5 dxe5 7.fxe5 Nd5 8.dxc5</strong>, traded into a winning endgame, and collected the exchange — exactly the counterplay Geller players fear.</p>
+
+  <h2>What went wrong — your loss vs rajandahal</h2>
+  <p>This was a <strong>different Geller branch</strong>: White played <strong>5.e5</strong>, and you answered correctly with <strong>5…dxe5 6…Nd5</strong>. You had no …c5 opportunity on move 5 — that advice applies when White plays <strong>5.Nf3</strong> (your Knvl game). The drift came later: on move 10 you played <strong>…c6</strong> while the d4 pawn was still there. <strong>10…c5</strong> would have hit it. You followed with <strong>12…e6</strong>, locking your bishop in and letting White pile up on the kingside.</p>
+
+  <div class="board-wrap">
+    <div id="board-mistake"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="e4 d6 d4 Nf6 Nc3 g6 f4 Bg7 e5 dxe5 fxe5 Nd5 Bc4 Nxc3 bxc3 O-O Nf3 Bg4 O-O"
+         data-fen="rn1q1rk1/ppp1ppbp/6p1/4P3/2BP2b1/2P2N2/P1P3PP/R1BQ1RK1 b - - 4 10"
+         data-highlight="c7,c5,d4,e5"
+         data-arrows='[{"from":"c7","to":"c5"}]'
+         data-caption="Before your &lt;strong&gt;10…c6&lt;/strong&gt; — d4 is still there. Play &lt;strong&gt;10…c5&lt;/strong&gt;; …c6 lets White keep the e5 bind."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Pirc Geller before passive 10...c6 in anth87 loss">
+    </div>
+  </div>
+  <p class="cite">Position from your loss vs rajandahal · <a href="https://www.chess.com/game/live/140648596552">2025-07-13</a> · verified via chess.js</p>
+
+  <p>The rule: <strong>…c5 hits d4; …c6 defends passively.</strong> vs 5.Nf3 play it on move 5; vs 5.e5 play …dxe5 first, but still find …c5 before …c6. Lesson 2 covers Classical Pirc; this lesson covers the Geller branch.</p>
+  <p class="cite">Primary reading: <a href="https://thechessworld.com/articles/openings/pirc-defense-complete-guide-for-black/">TheChessWorld — Pirc complete guide</a> (Modern / Geller section)</p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="2">
+      <p>1. After 4.f4 Bg7 5.Nf3, what is Black's best move?</p>
+      <div class="options">
+        <button type="button">Castle kingside immediately before challenging the centre</button>
+        <button type="button">Play c6 to support d5 and keep the pawn chain solid</button>
+        <button type="button">Strike d4 at once with c5 before White plays e5</button>
+        <button type="button">Push e5 yourself to open the centre for your bishop pair</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>2. When White plays 5.e5 instead of 5.Nf3, what should Black do?</p>
+      <div class="options">
+        <button type="button">Take dxe5 then develop the knight toward d5 when possible</button>
+        <button type="button">Push c6 immediately without ever challenging the d4 pawn</button>
+        <button type="button">Trade queens on d8 to simplify into a drawn endgame</button>
+        <button type="button">Retreat the g7 bishop to e6 before making any pawn moves</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>3. In rajandahal, White played 5.e5 and you took on e5 correctly. What was wrong with 10…c6?</p>
+      <div class="options">
+        <button type="button">c6 defended passively when 10…c5 could have hit the d4 pawn</button>
+        <button type="button">You should have played c5 on move five instead of taking on e5</button>
+        <button type="button">c6 is always wrong in the Geller no matter what White plays</button>
+        <button type="button">The error was c6 before kingside castle instead of queenside first</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as Black; if you see 4.f4, name the mantra before move 6. Review one Geller loss and check whether …c5 appeared before move 8.<br><br>
+    <strong>Previous:</strong> <a href="0007-caro-tartakower-long-castle.html">Lesson 7 — Caro-Kann Tartakower: long castle first</a><br>
+    <strong>Next session:</strong> Lesson 9 — Petroff Classical as Black.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to compare your other Geller losses, drill …c5 vs …c6 timing, or contrast this with Lesson 2 Classical Pirc.
+  </div>
+
+  <footer>
+    <a href="../reference/pirc-geller-plan.html">Pirc Geller plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. Castling first lets White play e5 with a free bind.",
+       "Wrong. …c6 is passive — …c5 hits d4 immediately.",
+       "Correct. 5…c5 is your Knvl template.",
+       "Wrong. …e5 blocks your g7 bishop and helps White."],
+      ["Correct. …dxe5 and …Nd5 is the standard Geller response.",
+       "Wrong. …c6 without …c5 repeats your rajandahal mistake.",
+       "Wrong. Queen trades are not the plan — fight for d4.",
+       "Wrong. Develop with …c5 or …dxe5 first."],
+      ["Correct. …c6 defended d6; …c5 would have struck d4.",
+       "Wrong. 5…dxe5 was correct vs 5.e5 — the miss was on move 10.",
+       "Wrong. …c6 can work later — the issue was choosing it over …c5.",
+       "Wrong. The problem was …c6 vs …c5, not castling side."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Geller plan locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play one Geller.' : 'Re-read the lesson and ask your teacher to drill …c5 vs …c6.'}`;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

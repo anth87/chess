@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2 — Pirc Classical: Black's Center Strike</title>
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .game-link { font-family: Consolas, monospace; font-size: 0.82rem; }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 2 · Pirc as Black</p>
+  <h1>Pirc Classical: Black's Center Strike</h1>
+  <p class="meta">~10 min · One tangible win: a 5-step plan through …Ng4 and …c5</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>Your leak map shows <strong>49 Pirc losses</strong> in four months — more than any other defense. The line you hit most is the <strong>Classical</strong> setup after <strong>5.Bc4 O-O</strong>. You often reach …Ng4 (good) but then drift into queen trades and passive positions without landing …c5.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Line: <a href="https://www.chess.com/openings/Pirc-Defense-Classical-Variation-4...Bg7-5.Bc4-O-O">Chess.com — Pirc Classical vs Bc4</a></p>
+
+  <h2>Your 5-step mantra (3+0)</h2>
+  <div class="insight">
+    <strong>Castle · Nbd7 · take on e5 · Ng4 · c5.</strong> Fianchetto and castle first. When White pushes e5, take …dxe5. Jump the knight to g4 to attack e5. Then play …c5 to hit d4 — that is your counterplay.
+  </div>
+  <p>Keep the card: <a href="../reference/pirc-classical-plan.html">Pirc Classical plan card</a>.</p>
+
+  <h2>Step 4 done right — your …Ng4 position</h2>
+  <div class="moves">6.O-O <strong>Nbd7</strong> 7.e5 <strong>dxe5</strong> 8.dxe5 <strong>Ng4</strong></div>
+
+  <div class="board-wrap">
+    <div id="board-ng4"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="e4 d6 Nf3 Nf6 Nc3 g6 d4 Bg7 Bc4 O-O O-O Nbd7 e5 dxe5 dxe5 Ng4"
+         data-fen="r1bq1rk1/pppnppbp/6p1/4P3/2B3n1/2N2N2/PPP2PPP/R1BQ1RK1 w - - 1 9"
+         data-highlight="g4,e5"
+         data-arrows='[{"from":"g4","to":"e5"}]'
+         data-caption="After &lt;strong&gt;8…Ng4&lt;/strong&gt; — knight attacks e5 (dashed = target square). Next job: &lt;strong&gt;…c5&lt;/strong&gt;."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Classical Pirc after 8...Ng4">
+    </div>
+  </div>
+  <p class="cite">Position from your loss vs XAXAXAXAXA6 · <a href="https://www.chess.com/game/live/169959119948">2026-06-09</a> · verified via chess.js</p>
+
+  <h2>What White does next</h2>
+  <p>White's main try is <strong>9.e6</strong>, chasing the f7 pawn. You answered with <strong>9…Nc5</strong> — fine. After <strong>10.exf7+ Kh8 11.Bg5</strong> you played <strong>11…Bxc3</strong>, traded queens, and sank into a worse rook endgame.</p>
+  <p>At 11, your knight already sits on <strong>c5</strong> (from 9…Nc5) — a pawn cannot also land there. Play <strong>11…h6</strong> to chase the bishop, not <strong>11…Bxc3</strong>.</p>
+
+  <div class="board-wrap">
+    <div id="board-mistake"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="e4 d6 Nf3 Nf6 Nc3 g6 d4 Bg7 Bc4 O-O O-O Nbd7 e5 dxe5 dxe5 Ng4 e6 Nc5 exf7+ Kh8 Bg5"
+         data-fen="r1bq1r1k/ppp1pPbp/6p1/2n3B1/2B3n1/2N2N2/PPP2PPP/R2Q1RK1 b - - 2 11"
+         data-highlight="c5,h6,g5"
+         data-arrows='[{"from":"h7","to":"h6"}]'
+         data-caption="Knight on &lt;strong&gt;c5&lt;/strong&gt; already (9…Nc5). Your move: &lt;strong&gt;11…h6&lt;/strong&gt; — not …Bxc3."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Before 11...Bxc3 mistake in anth87 game">
+    </div>
+  </div>
+
+  <p class="cite">Primary reading: <a href="https://thechessworld.com/articles/openings/pirc-defense-complete-guide-for-black/">TheChessWorld — Pirc complete guide for Black</a> (Classical systems section)</p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="1">
+      <p>1. After 5.Bc4 O-O, what is Black's best developing move on move 6?</p>
+      <div class="options">
+        <button type="button">Push the e-pawn to e5 before finishing kingside development</button>
+        <button type="button">Castle kingside and then develop the b8-knight to d7</button>
+        <button type="button">Capture the e4 pawn immediately with the f6-knight</button>
+        <button type="button">Advance the a-pawn to a5 to chase the c4 bishop</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="2">
+      <p>2. After 8…Ng4 in the Classical line, what is Black's strategic follow-up?</p>
+      <div class="options">
+        <button type="button">Trade queens on d8 to reach a comfortable endgame soon</button>
+        <button type="button">Retreat the g4-knight to e7 and defend passively for now</button>
+        <button type="button">Prepare …c5 to undermine White's d4 and e5 pawns</button>
+        <button type="button">Push …f5 immediately to open the f-file for the rook</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>3. In your game after 11.Bg5, what was the better choice than 11…Bxc3?</p>
+      <div class="options">
+        <button type="button">Play …h6 to chase the bishop and keep your pieces active</button>
+        <button type="button">Play …Qxd1 to trade queens and accept a worse endgame</button>
+        <button type="button">Play …Nxe5 to grab the pawn and ignore White's threats</button>
+        <button type="button">Play …f6 to drive the bishop back and weaken the kingside</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as Black vs 1.e4 (Pirc allowed). Before move 10, name your mantra out loud. Review one Pirc loss and check whether …c5 appeared before move 15.<br><br>
+    <strong>Previous:</strong> <a href="0001-your-blitz-leak-map.html">Lesson 1 — Leak map + CCT</a><br>
+    <strong>Next session:</strong> <a href="0003-kid-samisch-dont-bite-g4.html">Lesson 3 — King's Indian Samisch</a> (your #2 Black leak).
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to compare your other Pirc losses, drill …c5 timing, or preview the Modern/Geller line you also face.
+  </div>
+
+  <footer>
+    <a href="../reference/pirc-classical-plan.html">Pirc plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. …e5 before finishing development walks into White's space advantage.",
+       "Correct. …Nbd7 + …O-O is the Classical skeleton — development before central contact.",
+       "Wrong. The f6 knight should not capture on e4 here.",
+       "Wrong. Chasing Bc4 with …a5 is a sideline, not your main plan."],
+      ["Wrong. Early queen trades without …c5 give White a comfortable game.",
+       "Wrong. Retreating the knight gives up your pressure on e5.",
+       "Correct. …c5 is the thematic counter-strike against d4.",
+       "Wrong. …f5 is premature before you finish development and play …c5."],
+      ["Correct. …h6 chases the bishop; c5 already has your knight from move 9.",
+       "Wrong. …Qxd1 is the kind of trade you want to avoid here.",
+       "Wrong. …Nxe5 loses material to tactical shots.",
+       "Wrong. …f6 weakens your king and is not the thematic move."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Classical Pirc plan locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play one Pirc.' : 'Re-read the lesson and ask your teacher to drill …c5 timing.'}`;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

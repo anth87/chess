@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opening Explorer — anth87</title>
+<link rel="stylesheet" href="reference/vendor/chessboard-1.0.0.min.css">
+<link rel="stylesheet" href="reference/chess-com-board.css">
+<style>
+  :root{
+    --bg:#161512; --surface:#262421; --surface2:#302e2b; --border:#3d3b38;
+    --text:#f0f0f0; --muted:#9b9996; --accent:#81b64c; --accent-dim:#5d9941;
+    --win:#6fbf73; --draw:#9aa5b1; --loss:#e06c6c;
+    --radius:12px; --shadow:0 4px 24px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+    background:var(--bg);color:var(--text);min-height:100vh;
+    padding:24px 20px 40px;
+    background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(129,182,76,.08),transparent);
+  }
+  .wrap{max-width:1120px;margin:0 auto}
+  header{
+    display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+    margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);
+  }
+  .logo{
+    width:36px;height:36px;border-radius:8px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-dim));
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;box-shadow:0 2px 8px rgba(129,182,76,.3);
+  }
+  h1{font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.82rem}
+  .controls{
+    display:flex;flex-wrap:wrap;gap:14px;align-items:center;
+    margin-bottom:18px;
+  }
+  .seg{
+    display:inline-flex;background:var(--surface2);
+    border:1px solid var(--border);border-radius:999px;padding:3px;gap:2px;
+  }
+  .seg button{
+    background:transparent;border:none;color:var(--muted);
+    padding:9px 22px;font-size:.88rem;cursor:pointer;font-weight:600;
+    border-radius:999px;transition:background .2s,color .2s,box-shadow .2s;
+  }
+  .seg button:hover:not(.active){color:var(--text);background:rgba(255,255,255,.04)}
+  .seg button.active{
+    background:var(--accent);color:#fff;
+    box-shadow:0 2px 10px rgba(129,182,76,.35);
+  }
+  label.chk{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:.88rem;color:var(--text);cursor:pointer;user-select:none;
+    padding:8px 14px;background:var(--surface);border:1px solid var(--border);
+    border-radius:999px;transition:border-color .2s,background .2s;
+  }
+  label.chk:hover{border-color:var(--accent-dim)}
+  label.chk input{position:absolute;opacity:0;width:0;height:0}
+  label.chk .box{
+    width:18px;height:18px;border-radius:5px;flex-shrink:0;
+    border:2px solid var(--border);background:var(--surface2);
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .2s,background .2s;
+  }
+  label.chk input:checked + .box{
+    background:var(--accent);border-color:var(--accent);
+  }
+  label.chk input:checked + .box::after{
+    content:'';width:5px;height:9px;
+    border:solid #fff;border-width:0 2px 2px 0;
+    transform:rotate(45deg);margin-top:-2px;
+  }
+  .summary{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:10px;margin-bottom:20px;
+  }
+  .stat{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:12px 14px;
+    transition:border-color .2s,transform .15s;
+  }
+  .stat:hover{border-color:var(--accent-dim);transform:translateY(-1px)}
+  .stat b{font-size:1.2rem;display:block;font-variant-numeric:tabular-nums}
+  .stat .lbl{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+  #loadBox{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:40px 28px;text-align:center;
+    box-shadow:var(--shadow);
+  }
+  #loadMsg{font-size:.95rem;color:var(--muted)}
+  .spinner{
+    width:32px;height:32px;margin:0 auto 16px;
+    border:3px solid var(--border);border-top-color:var(--accent);
+    border-radius:50%;animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .bar{
+    height:5px;background:var(--surface2);border-radius:999px;
+    overflow:hidden;margin-top:16px;max-width:320px;margin-left:auto;margin-right:auto;
+  }
+  .bar>div{
+    height:100%;background:linear-gradient(90deg,var(--accent-dim),var(--accent));
+    width:0%;transition:width .25s ease;border-radius:999px;
+  }
+  main{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+  .boardCol{flex:0 0 auto;width:min(400px,100%)}
+  .com-board-outer{width:100%}
+  .com-board-wrap .board-b72b1{border:none!important;border-radius:4px}
+  .openingName{
+    margin-top:14px;font-size:.9rem;font-weight:600;color:var(--accent);
+    min-height:20px;line-height:1.4;
+  }
+  .crumbs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;font-size:.82rem}
+  .crumb{
+    background:var(--surface2);border:1px solid var(--border);
+    border-radius:999px;padding:5px 12px;cursor:pointer;color:var(--text);
+    transition:border-color .15s,background .15s,color .15s;
+  }
+  .crumb:hover{border-color:var(--accent);background:rgba(129,182,76,.1)}
+  .crumb.start{color:var(--muted)}
+  .movesCol{flex:1 1 380px;min-width:300px}
+  .nodeStats{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;font-size:.88rem;
+    box-shadow:0 2px 12px rgba(0,0,0,.2);
+  }
+  .nodeStats .big{font-size:1rem;font-weight:700}
+  .wdlBar{
+    display:flex;height:8px;border-radius:999px;overflow:hidden;
+    margin-top:10px;background:var(--surface2);
+  }
+  .wdlBar div{height:100%}
+  .turnLbl{
+    font-size:.72rem;color:var(--muted);text-transform:uppercase;
+    letter-spacing:.08em;margin:14px 0 8px;font-weight:600;
+  }
+  .table-wrap{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.2);
+  }
+  table{width:100%;border-collapse:collapse}
+  th{
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--muted);text-align:left;padding:10px 12px;
+    background:var(--surface2);border-bottom:1px solid var(--border);font-weight:600;
+  }
+  td{padding:10px 12px;font-size:.88rem;border-bottom:1px solid rgba(61,59,56,.6)}
+  tr.mv{cursor:pointer;transition:background .12s}
+  tr.mv:hover{background:rgba(129,182,76,.08)}
+  tr.mv:active{background:rgba(129,182,76,.14)}
+  tr:last-child td{border-bottom:none}
+  .san{font-weight:700;font-family:Consolas,"Segoe UI Mono",ui-monospace,monospace;font-size:.95rem}
+  .pct{color:var(--accent);font-weight:600}
+  .cnt{color:var(--muted);font-size:.78rem}
+  .rowWdl{
+    display:flex;height:16px;border-radius:6px;overflow:hidden;
+    min-width:120px;font-size:.65rem;color:#161512;font-weight:700;
+  }
+  .rowWdl div{display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap}
+  .score{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+  .empty{padding:24px;color:var(--muted);font-size:.88rem;text-align:center}
+  .err{color:var(--loss)}
+  .legend{
+    display:flex;flex-wrap:wrap;gap:12px;font-size:.75rem;color:var(--muted);margin-top:12px;
+  }
+  .dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:1px}
+  @media(max-width:760px){
+    main{flex-direction:column}
+    .boardCol{width:100%}
+    .com-board-outer{margin:0 auto}
+    .summary{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">♞</div>
+    <div>
+      <h1>Blitz Opening Explorer</h1>
+      <span class="sub">chess.com · anth87 · blitz only</span>
+    </div>
+  </header>
+
+  <div id="loadBox">
+    <div class="spinner"></div>
+    <div id="loadMsg">Fetching game archives…</div>
+    <div class="bar"><div id="loadBar"></div></div>
+  </div>
+
+  <div id="app" style="display:none">
+    <div class="controls">
+      <div class="seg">
+        <button id="btnW" class="active">As White</button>
+        <button id="btnB">As Black</button>
+      </div>
+      <label class="chk">
+        <input type="checkbox" id="ratedOnly">
+        <span class="box"></span>
+        Rated games only
+      </label>
+    </div>
+
+    <div class="summary" id="summary"></div>
+
+    <main>
+      <div class="boardCol">
+        <div class="com-board-outer">
+          <div class="com-board-wrap">
+            <div id="board"></div>
+          </div>
+        </div>
+        <div class="openingName" id="openingName"></div>
+        <div class="crumbs" id="crumbs"></div>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--win)"></span>Win</span>
+          <span><span class="dot" style="background:var(--draw)"></span>Draw</span>
+          <span><span class="dot" style="background:var(--loss)"></span>Loss</span>
+          <span>(from your perspective)</span>
+        </div>
+      </div>
+
+      <div class="movesCol">
+        <div class="nodeStats" id="nodeStats"></div>
+        <div class="turnLbl" id="turnLbl"></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Move</th><th>Played</th><th>Outcomes</th><th style="text-align:right">Score</th></tr></thead>
+            <tbody id="moveRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="reference/vendor/jquery-3.7.1.min.js"></script>
+<script src="reference/vendor/chessboard-1.0.0.min.js"></script>
+<script>
+/* ================= CONFIG ================= */
+const USERNAME = 'anth87';
+const MAX_PLY = 30;            // depth of tree (30 plies = 15 full moves)
+const CONCURRENCY = 6;
+
+/* ================= STATE ================= */
+let allGames = [];             // parsed blitz games
+let trees = null;              // {w:{...}, b:{...}}
+let viewColor = 'w';
+let path = [];                 // SAN list from start
+
+/* ================= MINI CHESS ENGINE (SAN application) ================= */
+function initPos(){
+  const sq = [];
+  'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.split('/').forEach(row=>{
+    for(const ch of row){
+      if(/\d/.test(ch)) for(let i=0;i<+ch;i++) sq.push(null);
+      else sq.push(ch);
+    }
+  });
+  return {sq, turn:'w', ep:-1};
+}
+const fileOf=i=>i%8, rankOf=i=>Math.floor(i/8); // rank 0 = 8th rank
+const sqIdx=s=>(8-+s[1])*8+(s.charCodeAt(0)-97);
+const isW=p=>p&&p===p.toUpperCase();
+function clone(st){ return {sq:st.sq.slice(), turn:st.turn, ep:st.ep}; }
+
+function pathClear(sq,a,b){
+  const fa=fileOf(a),ra=rankOf(a),fb=fileOf(b),rb=rankOf(b);
+  const df=Math.sign(fb-fa),dr=Math.sign(rb-ra);
+  let f=fa+df,r=ra+dr;
+  while(f!==fb||r!==rb){ if(sq[r*8+f])return false; f+=df;r+=dr; }
+  return true;
+}
+function attacks(sq,from,to){ // pseudo: does piece on 'from' attack 'to'
+  const p=sq[from]; if(!p)return false;
+  const t=p.toUpperCase();
+  const df=fileOf(to)-fileOf(from), dr=rankOf(to)-rankOf(from);
+  const adf=Math.abs(df), adr=Math.abs(dr);
+  if(t==='N') return (adf===1&&adr===2)||(adf===2&&adr===1);
+  if(t==='K') return adf<=1&&adr<=1&&(adf||adr);
+  if(t==='P'){ const dir=isW(p)?-1:1; return dr===dir&&adf===1; }
+  if(t==='B') return adf===adr&&adf>0&&pathClear(sq,from,to);
+  if(t==='R') return ((adf===0&&adr>0)||(adr===0&&adf>0))&&pathClear(sq,from,to);
+  if(t==='Q') return ((adf===adr&&adf>0)||(adf===0&&adr>0)||(adr===0&&adf>0))&&pathClear(sq,from,to);
+  return false;
+}
+function isAttacked(sq,target,byWhite){
+  for(let i=0;i<64;i++){
+    const p=sq[i];
+    if(p&&isW(p)===byWhite&&attacks(sq,i,target))return true;
+  }
+  return false;
+}
+function kingSq(sq,white){
+  const k=white?'K':'k';
+  for(let i=0;i<64;i++) if(sq[i]===k)return i;
+  return -1;
+}
+function doMove(st,from,to,promo){
+  const ns=clone(st);
+  const p=ns.sq[from];
+  const white=isW(p);
+  // en passant capture
+  if(p.toUpperCase()==='P'&&to===st.ep&&!ns.sq[to]){
+    ns.sq[white?to+8:to-8]=null;
+  }
+  ns.sq[to]=promo?(white?promo:promo.toLowerCase()):p;
+  ns.sq[from]=null;
+  ns.ep=(p.toUpperCase()==='P'&&Math.abs(from-to)===16)?(from+to)/2:-1;
+  ns.turn=white?'b':'w';
+  return ns;
+}
+function legalAfter(st,from,to,promo){
+  const ns=doMove(st,from,to,promo);
+  const white=st.turn==='w';
+  return !isAttacked(ns.sq,kingSq(ns.sq,white),!white);
+}
+function applySan(st,sanRaw){
+  const san=sanRaw.replace(/[+#!?]+$/,'');
+  const white=st.turn==='w';
+  // castling
+  if(san==='O-O'||san==='0-0'){
+    const k=white?60:4, ns=clone(st);
+    ns.sq[k+2]=ns.sq[k]; ns.sq[k]=null;
+    ns.sq[k+1]=ns.sq[k+3]; ns.sq[k+3]=null;
+    ns.ep=-1; ns.turn=white?'b':'w'; return ns;
+  }
+  if(san==='O-O-O'||san==='0-0-0'){
+    const k=white?60:4, ns=clone(st);
+    ns.sq[k-2]=ns.sq[k]; ns.sq[k]=null;
+    ns.sq[k-1]=ns.sq[k-4]; ns.sq[k-4]=null;
+    ns.ep=-1; ns.turn=white?'b':'w'; return ns;
+  }
+  const m=san.match(/^([KQRBN])?([a-h])?([1-8])?(x)?([a-h][1-8])(=([QRBN]))?$/);
+  if(!m) return null;
+  const piece=(m[1]||'P'), disF=m[2], disR=m[3], isCap=!!m[4], to=sqIdx(m[5]), promo=m[7];
+  const want=white?piece:piece.toLowerCase();
+  const cands=[];
+  for(let i=0;i<64;i++){
+    if(st.sq[i]!==want)continue;
+    if(disF&&fileOf(i)!==disF.charCodeAt(0)-97)continue;
+    if(disR&&rankOf(i)!==8-+disR)continue;
+    if(piece==='P'){
+      const dir=white?-1:1;
+      const df=fileOf(to)-fileOf(i), dr=rankOf(to)-rankOf(i);
+      if(isCap){
+        if(dr!==dir||Math.abs(df)!==1)continue;
+        if(!st.sq[to]&&to!==st.ep)continue;
+      }else{
+        if(df!==0)continue;
+        if(dr===dir&&!st.sq[to]){/*ok*/}
+        else if(dr===2*dir&&!st.sq[to]&&!st.sq[i+dir*8]&&rankOf(i)===(white?6:1)){/*ok*/}
+        else continue;
+      }
+    }else{
+      if(!attacks(st.sq,i,to))continue;
+      if(st.sq[to]&&isW(st.sq[to])===white)continue;
+    }
+    cands.push(i);
+  }
+  let from;
+  if(cands.length===1) from=cands[0];
+  else{
+    const legal=cands.filter(c=>legalAfter(st,c,to,promo));
+    from=legal[0];
+  }
+  if(from===undefined)return null;
+  if(st.sq[to]&&isW(st.sq[to])===white)return null;
+  return doMove(st,from,to,promo);
+}
+
+/* ================= PGN PARSING ================= */
+function extractMoves(pgn){
+  const split=pgn.indexOf('\n\n');
+  let mt=split>=0?pgn.slice(split):pgn.replace(/\[[^\]]*\]\s*/g,'');
+  mt=mt.replace(/\{[^}]*\}/g,' ')
+       .replace(/\$\d+/g,' ')
+       .replace(/\d+\.(\.\.)?/g,' ')
+       .replace(/\.\.\./g,' ')
+       .replace(/\b(1-0|0-1|1\/2-1\/2|\*)\s*$/,' ');
+  return mt.trim().split(/\s+/).filter(t=>t&&t!=='1-0'&&t!=='0-1'&&t!=='1/2-1/2'&&t!=='*');
+}
+function extractEco(pgn){
+  const m=pgn.match(/\[ECOUrl "https:\/\/www\.chess\.com\/openings\/([^"]+)"/);
+  if(!m)return null;
+  let slug=m[1];
+  const cut=slug.search(/-\d/);
+  if(cut>0)slug=slug.slice(0,cut);
+  return slug.replace(/-/g,' ');
+}
+
+/* ================= DATA LOADING ================= */
+const $=id=>document.getElementById(id);
+async function load(){
+  try{
+    const res=await fetch(`https://api.chess.com/pub/player/${USERNAME}/games/archives`);
+    if(!res.ok)throw new Error('Could not fetch archives ('+res.status+')');
+    const {archives}=await res.json();
+    if(!archives||!archives.length)throw new Error('No archives found for this account.');
+    let done=0;
+    const results=[];
+    async function worker(queue){
+      while(queue.length){
+        const url=queue.shift();
+        try{
+          const r=await fetch(url);
+          if(r.ok){ const j=await r.json(); results.push(...(j.games||[])); }
+        }catch(e){}
+        done++;
+        $('loadMsg').textContent=`Loading archives… ${done}/${archives.length} months (${results.length.toLocaleString()} games so far)`;
+        $('loadBar').style.width=(done/archives.length*100)+'%';
+      }
+    }
+    const queue=archives.slice();
+    await Promise.all(Array.from({length:Math.min(CONCURRENCY,queue.length)},()=>worker(queue)));
+
+    $('loadMsg').textContent='Parsing blitz games…';
+    const uname=USERNAME.toLowerCase();
+    let skipped=0;
+    for(const g of results){
+      if(g.time_class!=='blitz'||g.rules!=='chess'||!g.pgn)continue;
+      const userIsWhite=g.white.username.toLowerCase()===uname;
+      const me=userIsWhite?g.white:g.black, opp=userIsWhite?g.black:g.white;
+      let outcome='d';
+      if(me.result==='win')outcome='w';
+      else if(opp.result==='win')outcome='l';
+      const moves=extractMoves(g.pgn).slice(0,MAX_PLY);
+      if(!moves.length){skipped++;continue;}
+      allGames.push({
+        color:userIsWhite?'w':'b',
+        outcome,
+        moves,
+        eco:extractEco(g.pgn),
+        rated:!!g.rated
+      });
+    }
+    if(!allGames.length)throw new Error('No blitz games found for '+USERNAME+'.');
+    buildTrees();
+    $('loadBox').style.display='none';
+    $('app').style.display='block';
+    render();
+  }catch(e){
+    $('loadMsg').innerHTML='<span class="err">⚠ '+e.message+'</span>';
+    $('loadBar').style.width='0%';
+  }
+}
+
+/* ================= TREE ================= */
+function newNode(){return {count:0,w:0,d:0,l:0,children:{},eco:{}};}
+function buildTrees(){
+  const ratedOnly=$('ratedOnly').checked;
+  trees={w:newNode(),b:newNode()};
+  for(const g of allGames){
+    if(ratedOnly&&!g.rated)continue;
+    let node=trees[g.color];
+    node.count++; node[g.outcome]++;
+    for(const mv of g.moves){
+      const key=mv.replace(/[!?]+$/,'');
+      node.children[key]??=newNode();
+      node=node.children[key];
+      node.count++; node[g.outcome]++;
+      if(g.eco)node.eco[g.eco]=(node.eco[g.eco]||0)+1;
+    }
+  }
+}
+function nodeAt(p){
+  let node=trees[viewColor];
+  for(const mv of p){ node=node.children[mv]; if(!node)return null; }
+  return node;
+}
+
+/* ================= RENDER ================= */
+let boardWidget=null;
+function posToFen(st){
+  const ranks=[];
+  for(let r=0;r<8;r++){
+    let row='',empty=0;
+    for(let f=0;f<8;f++){
+      const p=st.sq[r*8+f];
+      if(!p)empty++;
+      else{if(empty){row+=empty;empty=0;}row+=p;}
+    }
+    if(empty)row+=empty;
+    ranks.push(row);
+  }
+  let castle='';
+  if(st.sq[60]==='K'&&st.sq[63]==='R')castle+='K';
+  if(st.sq[60]==='K'&&st.sq[56]==='R')castle+='Q';
+  if(st.sq[4]==='k'&&st.sq[7]==='r')castle+='k';
+  if(st.sq[4]==='k'&&st.sq[0]==='r')castle+='q';
+  if(!castle)castle='-';
+  let ep='-';
+  if(st.ep>=0){
+    ep=String.fromCharCode(97+fileOf(st.ep))+(8-rankOf(st.ep));
+  }
+  const fullmove=Math.floor(path.length/2)+1;
+  return ranks.join('/')+' '+st.turn+' '+castle+' '+ep+' 0 '+fullmove;
+}
+function boardWidth(){
+  const col=document.querySelector('.boardCol');
+  return Math.min(400,col?col.offsetWidth:400,window.innerWidth*0.92);
+}
+function sqName(i){return String.fromCharCode(97+fileOf(i))+(8-rankOf(i));}
+function highlightLastMove(changed){
+  const $=window.jQuery;
+  $('#board [data-square]').removeClass('com-last-move');
+  if(!changed||!changed.length)return;
+  changed.forEach(i=>{
+    const el=$(`#board [data-square="${sqName(i)}"]`);
+    if(el.length)el.addClass('com-last-move');
+  });
+}
+function renderBoard(){
+  let st=initPos();
+  let lastChanged=[];
+  for(let pi=0;pi<path.length;pi++){
+    const before=st.sq.slice();
+    const ns=applySan(st,path[pi]);
+    if(!ns)break;
+    if(pi===path.length-1){
+      lastChanged=[];
+      for(let i=0;i<64;i++) if(before[i]!==ns.sq[i])lastChanged.push(i);
+    }
+    st=ns;
+  }
+  const fen=posToFen(st);
+  const orient=viewColor==='b'?'black':'white';
+  if(!boardWidget){
+    boardWidget=Chessboard('board',{
+      position:fen,
+      orientation:orient,
+      draggable:false,
+      showNotation:true,
+      pieceTheme:'reference/pieces/wikipedia/{piece}.png',
+      width:boardWidth()
+    });
+    let resizeTimer;
+    window.addEventListener('resize',()=>{
+      clearTimeout(resizeTimer);
+      resizeTimer=setTimeout(()=>boardWidget&&boardWidget.resize(boardWidth()),120);
+    });
+  }else{
+    boardWidget.position(fen);
+    if(boardWidget.orientation()!==orient)boardWidget.orientation(orient);
+  }
+  requestAnimationFrame(()=>highlightLastMove(lastChanged));
+}
+function fmtPct(x){return (x*100).toFixed(1).replace(/\.0$/,'')+'%';}
+function wdlBarHTML(n,h){
+  const W=n.w/n.count*100,D=n.d/n.count*100,L=n.l/n.count*100;
+  const lab=(v,c)=>v>=(h?14:18)?Math.round(v)+'%':'';
+  return `<div class="${h?'wdlBar':'rowWdl'}">
+    <div style="width:${W}%;background:var(--win)">${h?'':lab(W)}</div>
+    <div style="width:${D}%;background:var(--draw)">${h?'':lab(D)}</div>
+    <div style="width:${L}%;background:var(--loss)">${h?'':lab(L)}</div>
+  </div>`;
+}
+function moveLabel(idx){ // idx = ply index in path
+  const n=Math.floor(idx/2)+1;
+  return idx%2===0?`${n}.${path[idx]}`:`${n}…${path[idx]}`;
+}
+function render(){
+  // summary
+  const t=trees[viewColor];
+  const tot=trees.w.count+trees.b.count;
+  $('summary').innerHTML=`
+    <div class="stat"><span class="lbl">Blitz games loaded</span><b>${tot.toLocaleString()}</b></div>
+    <div class="stat"><span class="lbl">As ${viewColor==='w'?'White':'Black'}</span><b>${t.count.toLocaleString()}</b></div>
+    <div class="stat"><span class="lbl">Wins</span><b style="color:var(--win)">${t.w.toLocaleString()}</b></div>
+    <div class="stat"><span class="lbl">Draws</span><b style="color:var(--draw)">${t.d.toLocaleString()}</b></div>
+    <div class="stat"><span class="lbl">Losses</span><b style="color:var(--loss)">${t.l.toLocaleString()}</b></div>
+    <div class="stat"><span class="lbl">Score</span><b>${t.count?fmtPct((t.w+t.d/2)/t.count):'–'}</b></div>`;
+
+  renderBoard();
+
+  // crumbs
+  const cr=$('crumbs'); cr.innerHTML='';
+  const start=document.createElement('span');
+  start.className='crumb start'; start.textContent='⌂ Start';
+  start.onclick=()=>{path=[];render();};
+  cr.appendChild(start);
+  path.forEach((mv,i)=>{
+    const c=document.createElement('span');
+    c.className='crumb'; c.textContent=moveLabel(i);
+    c.onclick=()=>{path=path.slice(0,i+1);render();};
+    cr.appendChild(c);
+  });
+
+  const node=nodeAt(path);
+  if(!node){path=[];render();return;}
+
+  // opening name
+  let eco='';
+  let best=0;
+  for(const[k,v]of Object.entries(node.eco)){ if(v>best){best=v;eco=k;} }
+  $('openingName').textContent=eco;
+
+  // node stats
+  $('nodeStats').innerHTML=`
+    <span class="big">${node.count.toLocaleString()} game${node.count===1?'':'s'}</span>
+    <span class="cnt"> reached this position · W ${node.w} / D ${node.d} / L ${node.l} · score ${fmtPct((node.w+node.d/2)/node.count)}</span>
+    ${wdlBarHTML(node,true)}`;
+
+  // whose move
+  const yourMove=(viewColor==='w')===(path.length%2===0);
+  $('turnLbl').textContent=yourMove?'▸ Your moves from here':'▸ Opponent replies from here';
+
+  // move rows
+  const rows=Object.entries(node.children).sort((a,b)=>b[1].count-a[1].count);
+  const tb=$('moveRows'); tb.innerHTML='';
+  if(!rows.length){
+    tb.innerHTML='<tr><td colspan="4" class="empty">No deeper games in this line (tree depth limit: '+(MAX_PLY/2)+' moves).</td></tr>';
+  }
+  for(const[san,ch]of rows){
+    const tr=document.createElement('tr');
+    tr.className='mv';
+    tr.innerHTML=`
+      <td class="san">${san}</td>
+      <td><span class="pct">${fmtPct(ch.count/node.count)}</span> <span class="cnt">(${ch.count.toLocaleString()})</span></td>
+      <td>${wdlBarHTML(ch,false)}</td>
+      <td class="score">${fmtPct((ch.w+ch.d/2)/ch.count)}</td>`;
+    tr.onclick=()=>{path=[...path,san];render();};
+    tb.appendChild(tr);
+  }
+}
+
+/* ================= EVENTS ================= */
+$('btnW').onclick=()=>{viewColor='w';path=[];$('btnW').classList.add('active');$('btnB').classList.remove('active');render();};
+$('btnB').onclick=()=>{viewColor='b';path=[];$('btnB').classList.add('active');$('btnW').classList.remove('active');render();};
+$('ratedOnly').onchange=()=>{buildTrees();path=[];render();};
+
+load();
+</script>
+</body>
+</html>

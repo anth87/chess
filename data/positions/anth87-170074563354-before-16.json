@@ -1,0 +1,10 @@
+{
+  "gameUrl": "https://www.chess.com/game/live/170074563354",
+  "label": "anth87 vs NejsemNikdo — before 16.Bg5",
+  "moves": "e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 e5 Nb5 Nf6 N1c3 a6 Na3 Bxa3 bxa3 O-O Be3 h6 Qd2 Kh7 f3 d6 g4 Be6 h4 d5 g5 d4 gxf6 Qxf6",
+  "fen": "r4r2/1p3ppk/p1n1bq1p/4p3/3pP2P/P1N1BP2/P1PQ4/R3KB1R w KQ - 0 16",
+  "highlights": ["f3", "f6"],
+  "arrows": [{ "from": "f6", "to": "f3" }],
+  "verified": "2026-06-12",
+  "engine": "chess.js@1.4.0"
+}

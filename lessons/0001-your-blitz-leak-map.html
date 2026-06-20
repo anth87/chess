@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1 — Your Blitz Leak Map</title>
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin: 1rem 0;
+      font-size: 0.88rem;
+    }
+    .stat {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.75rem;
+      border-radius: 4px;
+    }
+    .stat strong { display: block; font-size: 1.25rem; color: var(--accent); }
+    .stat span { color: var(--muted); font-size: 0.78rem; }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .game-link { font-family: Consolas, monospace; font-size: 0.82rem; }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 1 · 1700 → 2000 Blitz</p>
+  <h1>Your Blitz Leak Map</h1>
+  <p class="meta">~10 min · One tangible win: know where your rating leaks — and install CCT</p>
+
+  <h2>Your numbers (from your games)</h2>
+  <p>I pulled your last four months of Chess.com blitz (3+0) via the public API. This is <em>your</em> data, not generic 1700 advice.</p>
+
+  <div class="stats">
+    <div class="stat"><strong>1705</strong><span>Current blitz</span></div>
+    <div class="stat"><strong>1948</strong><span>Peak blitz — you've been close</span></div>
+    <div class="stat"><strong>342</strong><span>Blitz games (sample)</span></div>
+    <div class="stat"><strong>~50%</strong><span>Win rate — need fewer leak losses</span></div>
+  </div>
+
+  <p class="cite">Source: <a href="https://api.chess.com/pub/player/anth87/games/archives">Chess.com PubAPI — anth87</a> · Full chart: <a href="../reference/leak-map.html">leak map reference</a></p>
+
+  <h2>Where points leave your account</h2>
+  <ul>
+    <li><strong>53% of losses</strong> — you resign when worse (often after a tactical slip snowballs)</li>
+    <li><strong>26% of losses</strong> — you get checkmated (one-move or two-move oversights)</li>
+    <li><strong>10% of losses</strong> — flagging (clock management is a secondary fix)</li>
+  </ul>
+  <p class="cite">Theme list aligns with <a href="https://en.chessbase.com/post/typical-mistakes-by-1600-1900-players">GM Pert — typical 1600–1900 mistakes</a> (especially “be aware of opponent's threats”).</p>
+
+  <h2>Your opening leaks (losses only)</h2>
+  <p><strong>As Black:</strong> Pirc (Modern + Classical) and King's Indian — you reach uncomfortable middlegames often enough to show up in the stats.</p>
+  <p><strong>As White:</strong> Philidor, Owen's Defense (1…b6), Berlin/Zukertort sidelines — offbeat lines where a default plan beats memorization.</p>
+  <p>We'll attack these one at a time. <strong>Today:</strong> the habit that cuts losses in <em>all</em> of them.</p>
+
+  <h2>Case study — today's loss</h2>
+  <p class="game-link">vs NejsemNikdo · Sicilian Sveshnikov · <a href="https://www.chess.com/game/live/170074563354">2026-06-12</a></p>
+  <p>After a sharp pawn race (14.g5 d4 15.gxf6 Qxf6), you played <strong>16.Bg5</strong> in two seconds. Black's <strong>16…Qxf3</strong> wins material — you never recovered.</p>
+
+  <div class="board-wrap">
+    <div id="lesson-board"
+         class="chesscom-board"
+         data-moves="e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 e5 Nb5 Nf6 N1c3 a6 Na3 Bxa3 bxa3 O-O Be3 h6 Qd2 Kh7 f3 d6 g4 Be6 h4 d5 g5 d4 gxf6 Qxf6"
+         data-fen="r4r2/1p3ppk/p1n1bq1p/4p3/3pP2P/P1N1BP2/P1PQ4/R3KB1R w KQ - 0 16"
+         data-highlight="f3,f6"
+         data-arrows='[{"from":"f6","to":"f3"}]'
+         data-caption="Your position before &lt;strong&gt;16.Bg5&lt;/strong&gt;. Run CCT: Black's queen on f6 eyes f3."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Position before 16.Bg5 in anth87 vs NejsemNikdo">
+    </div>
+  </div>
+  <p class="cite">Position verified via chess.js from your <a href="https://www.chess.com/game/live/170074563354">game PGN</a> — not hand-built.</p>
+
+  <div class="insight">
+    <strong>Your mantra for 3+0:</strong> After they move, before you move — <strong>CCT</strong>: Checks, Captures, Threats. Fifteen seconds here saves three hundred rating points over a month.
+  </div>
+  <p>Keep the card open while you play: <a href="../reference/cct-checklist.html">CCT checklist</a>.</p>
+  <p class="cite">Primary reading: <a href="https://www.chess.com/blog/KingsideCastleNotation/how-i-got-2000-a-guide-for-you">O-O — How I Got 2000</a> (puzzles + review stack) and <a href="https://www.chess.com/lessons/learn-chess/capture-pieces">Chess.com — capture/threat basics</a></p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="0">
+      <p>1. What is your biggest recurring loss mode in the data sample?</p>
+      <div class="options">
+        <button type="button">Resigning after a position turns tactically worse</button>
+        <button type="button">Drawing every game by repeating the position</button>
+        <button type="button">Winning on time with only a lone king left</button>
+        <button type="button">Losing solely because the opening is always lost</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="1">
+      <p>2. Which opening cluster appears most in your Black losses?</p>
+      <div class="options">
+        <button type="button">Queen's Gambit Declined with the Tartakower setup</button>
+        <button type="button">Pirc Defense in Modern and Classical forms</button>
+        <button type="button">Scandinavian Defense with the main queen line</button>
+        <button type="button">French Winawer with queenside pawn storms</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="2">
+      <p>3. In today's game, what should CCT have flagged before 16.Bg5?</p>
+      <div class="options">
+        <button type="button">Black cannot move any piece so Bg5 is always safe</button>
+        <button type="button">Only checks matter here so captures can be ignored</button>
+        <button type="button">Queen on f6 threatens Qxf3 winning the rook pawn</button>
+        <button type="button">Bg5 wins the queen immediately with no follow-up</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games. On every move where you're ahead or the position is sharp, whisper CCT before moving. Then review one loss with <a href="https://www.chess.com/analysis">self-analysis</a> before turning the engine on.<br><br>
+    <strong>Next session:</strong> <a href="0002-pirc-classical-center-strike.html">Lesson 2 — Pirc Classical</a> (your #1 opening leak).
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to walk through any listed loss move-by-move, refresh your leak stats, or drill CCT on positions from your archive.
+  </div>
+
+  <footer>
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a> ·
+    <a href="../RESOURCES.md">Resources</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Correct. Resignations dominate — usually after a tactic you could have blocked.",
+       "Wrong. Only 2 repetition draws in the sample.",
+       "Wrong. Time wins are rare in your loss profile.",
+       "Wrong. Openings hurt, but tactics/resignations are the bigger bucket."],
+      ["Wrong. QGD Tartakower is not a top loss line for you.",
+       "Correct. Pirc clusters at the top of your Black losses.",
+       "Wrong. Scandinavian is not a recurring loss theme.",
+       "Wrong. French Winawer barely appears."],
+      ["Wrong. Black has several active options.",
+       "Wrong. Captures and threats matter — Qxf3 is a capture threat.",
+       "Correct. Qxf3 wins material; Bg5 ignores that threat.",
+       "Wrong. Bg5 does not win the queen."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Leak map locked in. Run CCT in your next session.' : correct >= 2 ? 'Good. Re-read the case study, then play 3 rated games.' : 'Re-read the lesson and ask your teacher to quiz you on CCT.'}`;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

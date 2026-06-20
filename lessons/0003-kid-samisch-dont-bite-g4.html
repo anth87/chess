@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3 — KID Samisch: Don't Bite on g4</title>
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 3 · KID as Black</p>
+  <h1>KID Samisch: Don't Bite on g4</h1>
+  <p class="meta">~10 min · One tangible win: a 4-step plan through …e5, …Nc5, and …h6</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>Your leak map shows <strong>King's Indian</strong> losses as Black across several lines — the Samisch (3.f3) is the one where you reach a playable centre and then hand White the attack. In your loss vs <strong>irerie</strong> you played …e5 and …Nc5 correctly, then took on g4 after <strong>11.h5</strong> and got mated on the kingside.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Line: <a href="https://www.chess.com/openings/Kings-Indian-Defense-Samisch-Normal-Defense-6.Be3-a6-7.Qd2-Nbd7">Chess.com — KID Samisch Normal</a></p>
+
+  <h2>Your 4-step mantra (3+0)</h2>
+  <div class="insight">
+    <strong>…e5 · …Nc5 · …h6 · …b5.</strong> When White pushes g4, strike the centre with …e5 — not …Nxg4. After d5, jump …Nc5. When White plays h5, blunt with …h6. Queenside …b5 only after the centre is stable.
+  </div>
+  <p>Keep the card: <a href="../reference/kid-samisch-plan.html">KID Samisch plan card</a>.</p>
+
+  <h2>Steps 1–2 done right — your …Nc5 position</h2>
+  <div class="moves">8.g4 <strong>e6</strong> 9.h4 <strong>e5</strong> 10.d5 <strong>Nc5</strong></div>
+
+  <div class="board-wrap">
+    <div id="board-nc5"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="d4 d6 c4 Nf6 f3 g6 e4 Bg7 Be3 O-O Qd2 Nbd7 Nc3 a6 g4 e6 h4 e5 d5 Nc5"
+         data-fen="r1bq1rk1/1pp2pbp/p2p1np1/2nPp3/2P1P1PP/2N1BP2/PP1Q4/R3KBNR w KQ - 1 11"
+         data-highlight="c5,e5,d5"
+         data-arrows='[{"from":"c5","to":"e4"}]'
+         data-caption="After &lt;strong&gt;10…Nc5&lt;/strong&gt; — centre closed, knight on c5 eyes e4. White may push &lt;strong&gt;h5&lt;/strong&gt;; your job is &lt;strong&gt;…h6&lt;/strong&gt;, not …Nxg4."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="KID Samisch after 10...Nc5">
+    </div>
+  </div>
+  <p class="cite">Position from your loss vs irerie · <a href="https://www.chess.com/game/live/169729761620">2026-06-05</a> · verified via chess.js</p>
+
+  <h2>What went wrong at move 11</h2>
+  <p>White played <strong>11.h5</strong>. You answered <strong>11…Nxg4??</strong> — capturing the pawn opens the f-file, lets White recapture with <strong>12.fxg4</strong>, and brings the dark-squared bishop to g4 with tempo. You traded the initiative you earned with …e5 for a passive kingside.</p>
+  <p>Play <strong>11…h6</strong> instead. You keep the knight, blunt h5, and can still chase the bishop with …g5 later if needed.</p>
+
+  <div class="board-wrap">
+    <div id="board-mistake"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="d4 d6 c4 Nf6 f3 g6 e4 Bg7 Be3 O-O Qd2 Nbd7 Nc3 a6 g4 e6 h4 e5 d5 Nc5 h5"
+         data-fen="r1bq1rk1/1pp2pbp/p2p1np1/2nPp2P/2P1P1P1/2N1BP2/PP1Q4/R3KBNR b KQ - 0 11"
+         data-highlight="h6,h5,g4"
+         data-arrows='[{"from":"h7","to":"h6"}]'
+         data-caption="After &lt;strong&gt;11.h5&lt;/strong&gt; — play &lt;strong&gt;11…h6&lt;/strong&gt;. Do not take on g4."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Before 11...Nxg4 mistake in anth87 game">
+    </div>
+  </div>
+
+  <p>After your mistake, the game continued <strong>12.fxg4 Bxg4 13.Be2 Bxe2 14.Ngxe2 b5</strong> — queenside play too late while White's pieces flooded the kingside. You were checkmated on move 36.</p>
+  <p class="cite">Primary reading: <a href="https://www.chess.com/openings/Kings-Indian-Defense-Samisch-Variation">Chess.com — KID Samisch overview</a></p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="2">
+      <p>1. After 8.g4 in the Samisch, what is Black's thematic response?</p>
+      <div class="options">
+        <button type="button">Capture the g4 pawn immediately with the f6-knight</button>
+        <button type="button">Push …f5 to open the f-file before finishing development</button>
+        <button type="button">Strike the centre with …e5 and prepare …Nc5 after d5</button>
+        <button type="button">Retreat the g7 bishop to e6 and defend passively for now</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>2. After 10…Nc5, what square does the knight pressure?</p>
+      <div class="options">
+        <button type="button">The e4 pawn — White's central anchor in the Samisch</button>
+        <button type="button">The a2 pawn — starting queenside counterplay immediately</button>
+        <button type="button">The h2 pawn — joining White's kingside pawn storm</button>
+        <button type="button">The c4 pawn — forcing an early queen trade on d8</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="1">
+      <p>3. In your game after 11.h5, what was the better choice than 11…Nxg4?</p>
+      <div class="options">
+        <button type="button">Play …b5 immediately to start queenside play at all costs</button>
+        <button type="button">Play …h6 to blunt the attack and keep your kingside knight</button>
+        <button type="button">Play …Nxe4 to grab material and ignore White's threats</button>
+        <button type="button">Play …g5 to close the kingside and accept a locked position</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as Black vs 1.d4 (KID allowed). Before move 12 in any Samisch, name your mantra out loud. Review one KID loss and check whether …h6 appeared before …Nxg4.<br><br>
+    <strong>Previous:</strong> <a href="0002-pirc-classical-center-strike.html">Lesson 2 — Pirc Classical center strike</a><br>
+    <strong>Next session:</strong> <a href="0004-owens-white-long-castle.html">Lesson 4 — Owen's Defense: long castle first</a>.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to compare your other KID losses, drill …h6 vs …Nxg4, or preview the Classical KID lines you also face.
+  </div>
+
+  <footer>
+    <a href="../reference/kid-samisch-plan.html">KID Samisch plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. …Nxg4 on move 8 walks into White's kingside attack.",
+       "Wrong. …f5 is premature before the centre is settled with …e5.",
+       "Correct. …e5 fights for the centre; …Nc5 follows after d5.",
+       "Wrong. Passive retreat gives White a free hand on the kingside."],
+      ["Correct. The c5 knight eyes e4 — your central counterplay.",
+       "Wrong. …b5 comes later, after the centre is stable.",
+       "Wrong. Chasing h2 joins White's attack, not yours.",
+       "Wrong. The c4 pawn is not the immediate target from c5."],
+      ["Wrong. …b5 without kingside safety is how your game unraveled.",
+       "Correct. …h6 blunts h5 and keeps the f6 knight.",
+       "Wrong. …Nxe4 loses material to tactical shots.",
+       "Wrong. …g5 is a later idea; …h6 is the direct answer to h5."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Samisch plan locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play one KID.' : 'Re-read the lesson and ask your teacher to drill …h6 timing.'}`;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Normal Variation — Move Tree (White)</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #8b4513;
+      --white-move: #2d5a27;
+      --black-move: #5a2d2d;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+    .tree { font-family: "Consolas", "Courier New", monospace; font-size: 0.88rem; line-height: 1.7; }
+    .w { color: var(--white-move); }
+    .b { color: var(--black-move); }
+    .note { color: var(--muted); font-family: inherit; font-size: 0.82rem; }
+    .branch { margin-left: 1.5rem; border-left: 2px solid var(--border); padding-left: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
+    .highlight { background: #fff8e7; padding: 0.1rem 0.3rem; border-radius: 2px; }
+    h2 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 2rem 0 0.75rem; }
+    .plan { font-size: 0.92rem; margin-top: 1.5rem; padding: 1rem; background: #fff; border: 1px solid var(--border); border-radius: 4px; }
+    .plan strong { color: var(--accent); }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <h1>Normal Variation Move Tree</h1>
+  <p class="subtitle">White's main line vs 4…Bg4 — your current study focus.</p>
+
+  <div class="tree">
+    <div><span class="w">1.e4</span> <span class="b">Nf6</span> <span class="note">— Alekhine begins: attack e4</span></div>
+    <div><span class="w">2.e5</span> <span class="b">Nd5</span> <span class="note">— chase the knight; build the big center</span></div>
+    <div><span class="w">3.d4</span> <span class="b">d6</span> <span class="note">— challenge the e5-pawn</span></div>
+    <div><span class="w">4.Nf3</span> <span class="note">— develop; keep the center</span></div>
+
+    <div class="branch">
+      <div><span class="b">4…Bg4</span> <span class="note">— pin; most common in your target line</span></div>
+      <div class="branch">
+        <div><span class="highlight"><span class="w">5.Be2</span></span> <span class="note">— ★ main move (78% at 2500)</span></div>
+        <div class="branch">
+          <div><span class="b">5…e6</span> <span class="note">— solid; prepares …Be7</span></div>
+          <div><span class="w">6.O-O</span> <span class="b">Be7</span></div>
+          <div><span class="w">7.c4</span> <span class="b">Nb6</span> <span class="note">— expand; knight retreats</span></div>
+          <div><span class="w">8.Nc3</span> <span class="note">— complete development → middlegame plans</span></div>
+        </div>
+        <div class="branch">
+          <div><span class="b">5…Bxf3</span> <span class="note">— structural trade</span></div>
+          <div><span class="w">6.Bxf3</span> <span class="note">— keep bishop pair (best)</span></div>
+          <div><span class="w">6.gxf3</span> <span class="note">— doubled f-pawns; Black targets f3</span></div>
+        </div>
+      </div>
+      <div class="branch">
+        <div><span class="w">5.h3</span> <span class="note">— playable but not main; gives Black time</span></div>
+        <div><span class="w">5.c4</span> <span class="note">— space grab; different character</span></div>
+      </div>
+    </div>
+
+    <div class="branch">
+      <div><span class="b">4…g6</span> <span class="note">— fianchetto; lesson 2+</span></div>
+      <div><span class="b">4…dxe5</span> <span class="note">— exchange; undermines center immediately</span></div>
+    </div>
+  </div>
+
+  <h2>White's plan after 8.Nc3</h2>
+  <div class="plan">
+    <strong>Space:</strong> Use the c4+e5+d4 pawn mass — avoid letting Black play …f6 and …dxe5 for free.<br>
+    <strong>Development:</strong> Re1, Bf4 or Be3, Qd2 — rooks on e- and d-files.<br>
+    <strong>Targets:</strong> If Black plays …Bxf3 gxf3, attack the weak f3-pawn and use your bishop pair.
+  </div>
+
+  <footer>
+    <a href="../lessons/0001-whites-game-plan.html">← Lesson 1</a> ·
+    <a href="../reference/glossary.html">Glossary</a> ·
+    Source: <a href="https://chessiverse.com/resources/openings/alekhine-defence-1-e4-nf6-2-e5-nd5-3-d4-d6-4-nf3-bg4">Chessiverse B05 data</a>
+  </footer>
+</body>
+</html>
