@@ -118,7 +118,7 @@ async function main() {
     return;
   }
 
-  const server = spawn('py', ['-m', 'http.server', String(PORT)], {
+  const server = spawn('python3', ['-m', 'http.server', String(PORT)], {
     cwd: ROOT,
     stdio: 'ignore',
     shell: true
