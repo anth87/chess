@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cp -r /home/user/chess/.grok/skills/. /root/.claude/skills/"
+          }
+        ]
+      }
+    ]
+  }
+}
