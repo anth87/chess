@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 9 — Petroff Classical: Long Castle First</title>
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+  <link rel="stylesheet" href="../reference/lesson-nav.css">
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 9 · Petroff Classical as White</p>
+  <h1>Petroff Classical: Long Castle First</h1>
+  <p class="meta">~10 min · One tangible win: castle long and roll the kingside before Black equalises</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>Your 12-month White loss map shows <strong>11 Petroff losses</strong> — the defining move order is <strong>1.e4 e5 2.Nf3 Nf6 3.Nxe5 d6 4.Nf3 Nxe4</strong>. Black gives up the centre briefly but has equal chances if White drifts passive. In your <strong>win vs pozzo</strong> you played <strong>5.Nc3</strong>, accepted the doubled pawns, then developed with <strong>Bf4 · Qd2 · O-O-O</strong> and built a winning kingside attack. The recipe is clear — and it mirrors the long-castle theme from Lessons 4, 5, and 7.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Line: <a href="https://www.chess.com/openings/Petrovs-Defense-Classical-Attack">Chess.com — Petroff Classical</a></p>
+
+  <h2>The 3-step mantra (after 5.Nc3 Nxc3 6.dxc3)</h2>
+  <div class="insight">
+    <strong>Bf4 · Qd2 · O-O-O.</strong> Develop the bishop first — before choosing your castle side — then connect the rooks with Qd2, then castle long. King to c1, rook to d1 on the open file. The kingside storm (h4 · g4 · h5) follows naturally. Never play O-O here: short castle lets Black equalise without a fight.
+  </div>
+  <p>Quick-lookup card: <a href="../reference/petroff-white-plan.html">Petroff White plan card</a></p>
+
+  <h2>The decision point — your move 7</h2>
+  <p>After 5.Nc3 Nxc3 6.dxc3 Be7, the position looks quiet. White has doubled c-pawns but an open d-file and a bishop pair. The key is to develop <strong>Bf4</strong> before Black can neutralise your light-squared bishop. Do not play Bc4 here — it commits you to short castle and the advantage evaporates.</p>
+
+  <div class="board-wrap">
+    <div id="board-recipe"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Nc3 Nxc3 dxc3 Be7"
+         data-fen="rnbqk2r/ppp1bppp/3p4/8/8/2P2N2/PPP2PPP/R1BQKB1R w KQkq - 1 7"
+         data-highlight="c1,f4,d2"
+         data-arrows='[{"from":"c1","to":"f4"}]'
+         data-caption="After 6…Be7 — play &lt;strong&gt;7.Bf4&lt;/strong&gt;. The c1 bishop develops before committing to a castle side. d2 is queued for Qd2 next."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Petroff Classical after 6...Be7 — Bf4 decision point">
+    </div>
+  </div>
+  <p class="cite">Arising from: 1.e4 e5 2.Nf3 Nf6 3.Nxe5 d6 4.Nf3 Nxe4 5.Nc3 Nxc3 6.dxc3</p>
+
+  <h2>The win — long castle secured</h2>
+  <div class="moves">7.Bf4 O-O 8.Qd2 Nc6 9.O-O-O</div>
+
+  <div class="board-wrap">
+    <div id="board-win"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Nc3 Nxc3 dxc3 Be7 Bf4 O-O Qd2 Nc6 O-O-O"
+         data-fen="r1bq1rk1/ppp1bppp/2np4/8/5B2/2P2N2/PPPQ1PPP/2KR1B1R b - - 6 9"
+         data-highlight="c1,d1,f4"
+         data-arrows='[{"from":"h2","to":"h4"}]'
+         data-caption="After 9.O-O-O — king safe on c1, rook on the open d-file. White launches &lt;strong&gt;h4&lt;/strong&gt; to begin the kingside storm."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Petroff Classical after 9.O-O-O in anth87 win vs pozzo">
+    </div>
+  </div>
+  <p class="cite">Position from your win vs pozzo · <a href="https://www.chess.com/game/live/144216171712">2025-10-12</a> · ECO C42</p>
+
+  <p>The game continued <strong>9…Be6 10.Kb1 a5 11.Bb5 Bd7 12.a4</strong> — White kept the queenside locked and turned to the kingside. After <strong>16.g4 Be5 17.g5</strong>, Black's pieces were pushed back. The game ended in checkmate on move 42. The Bf4 bishop, active from move 7, reached e5 on move 18 and never lost its grip.</p>
+
+  <h2>The pitfall — short castle costs half a point</h2>
+  <p>In a related 3…Nc6 Petroff line (January 2026), you tried <strong>Bc4 then O-O</strong> (short castle). The position remained level throughout — Black equalised comfortably, and the game was drawn by agreement on move 40. Short castle signals to Black that you have no ambition; long castle signals an attack.</p>
+  <p><strong>Rule:</strong> Bf4 before Bc4. Qd2 before O-O. The long castle gives you the d-file and a safe king; the short castle gives Black what they want — equality.</p>
+  <p class="cite">Position: your draw vs shakhivnytsya · 2026-01-09 · ECO C42 · drawn move 40</p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="2">
+      <p>1. After 5.Nc3 Nxc3 6.dxc3 Be7, what is White's correct 7th move?</p>
+      <div class="options">
+        <button type="button">Bc4 — target the f7 pawn and keep short castle available</button>
+        <button type="button">Bg5 — pin Black's knight and develop before castling</button>
+        <button type="button">Bf4 — develop the bishop before committing to a castle side</button>
+        <button type="button">Bd3 — solidly support the c4 square and wait for Black</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="1">
+      <p>2. After 7.Bf4 O-O, what does White play before castling?</p>
+      <div class="options">
+        <button type="button">O-O — castle short immediately to keep king safety equal</button>
+        <button type="button">Qd2 — connect the rooks and prepare to castle queenside</button>
+        <button type="button">h4 — begin the kingside storm before the king is safe</button>
+        <button type="button">Nd2 — reroute the knight to a better square first</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="1">
+      <p>3. What was the key structural benefit of 9.O-O-O in your win vs pozzo?</p>
+      <div class="options">
+        <button type="button">The king avoided the open e-file by hiding behind the c-pawns</button>
+        <button type="button">The rook landed on d1 on an open file, ready to support the kingside storm</button>
+        <button type="button">The doubled c-pawns became a strength that anchored White's queenside</button>
+        <button type="button">Short castle was no longer possible, forcing White to commit to the attack</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as White with 1.e4; if Black plays Petroff (2…Nf6), name the three steps before move 10. Check one past Petroff loss — did you play Bf4 before choosing the castle side?<br><br>
+    <strong>Previous:</strong> <a href="0008-pirc-geller-strike-c5.html">Lesson 8 — Pirc Geller: Strike with …c5</a><br>
+    <strong>Next session:</strong> Lesson 10 — TBD based on your next leak cluster.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to walk through the pozzo win move by move, contrast Bf4 vs Bc4, or drill the three steps from memory.
+  </div>
+
+  <footer>
+    <a href="../reference/petroff-white-plan.html">Petroff White plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. Bc4 commits you to short castle — Black equalises with …d5 and you lose the initiative.",
+       "Wrong. Bg5 is possible but doesn't set up long castle; Black can meet it with …Be6 comfortably.",
+       "Correct. Bf4 keeps all options open and develops before Black can neutralise the bishop.",
+       "Wrong. Bd3 is passive — you want the bishop active on the long diagonal, not defending c4."],
+      ["Wrong. O-O signals no ambition — Black equalises without a fight, as in your draw vs shakhivnytsya.",
+       "Correct. Qd2 connects the rooks and makes O-O-O possible on the next move.",
+       "Wrong. h4 before the king is safe is premature — Black can ignore it and counterattack.",
+       "Wrong. The knight is already on f3 and well-placed; Nd2 wastes a tempo."],
+      ["Wrong. The king on c1 is behind doubled pawns, not the e-file — that is a minor point.",
+       "Correct. Rook on d1 on an open file is the key — it supported every phase of the kingside attack.",
+       "Wrong. The doubled c-pawns are a structural weakness accepted for activity, not a strength.",
+       "Wrong. The benefit of O-O-O is the resulting position, not the loss of short-castle rights."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Petroff plan locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play a Petroff line.' : 'Re-read the lesson and ask your teacher to drill the three steps.'}`;
+          }
+        });
+      });
+    });
+  </script>
+  <script src="../reference/lesson-nav.js"></script>
+</body>
+</html>

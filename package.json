@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "chess.js": "^1.4.0"
+    "chess.js": "^1.4.0",
+    "playwright-core": "^1.61.0"
   }
 }
