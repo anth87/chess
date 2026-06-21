@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 10 — Pirc vs 150 Attack: Castle, Then …c5</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+  <link rel="stylesheet" href="../reference/lesson-nav.css">
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 10 · Pirc Defence as Black</p>
+  <h1>Pirc vs 150 Attack: Castle First, Then …c5</h1>
+  <p class="meta">~10 min · One tangible win: stop reacting to the bishop and hit the centre instead</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>Your 12-month loss map shows <strong>14+ Pirc losses to "Main Line" systems</strong> — positions where White plays <strong>4.Be3 · 5.Qd2</strong> (the 150 Attack), sets up long castle, then rolls f3 · g4 · h4. Lessons 2 and 8 covered the Classical (5.Bc4) and Geller (4.f4) branches. This lesson covers the third major White system: the 150 Attack.</p>
+  <p>The recurring mistake in your games: you play <strong>5…Ng4</strong> trying to trade White's bishop. White retreats to g5 or f4, you push …h6 and then …g5 to drive the bishop back, and now your kingside is weakened for the rest of the game. White never had to work for those targets — you handed them over.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Line: <a href="https://www.chess.com/openings/Pirc-Defense-Main-Line-4.Be3-Bg7-5.Qd2-O-O">Chess.com — Pirc Main Line 4.Be3 5.Qd2</a></p>
+
+  <h2>The 2-step mantra (after 4.Be3 · 5.Qd2)</h2>
+  <div class="insight">
+    <strong>O-O · c5.</strong> Castle first — your king needs to be safe before you start counterplay. Then immediately play …c5, hitting d4 before White can play f3 and h4. You are forcing White to react for once. Never play …Ng4 here: it achieves nothing and costs you the kingside pawn structure.
+  </div>
+
+  <h2>The recipe — castle, then hit back</h2>
+  <p>After 5.Qd2, resist the impulse to chase the bishop. Castle. Once White commits to long castle with O-O-O, strike at once with <strong>6…c5</strong>. The pawn attacks d4 — White must either close the centre with d5 (giving you time to organise a queenside counter) or swap on c5 and give you an open c-file. Either way White's kingside storm is delayed or defused.</p>
+
+  <div class="moves">5…O-O 6.O-O-O c5!</div>
+
+  <div class="board-wrap">
+    <div id="board-recipe"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="e4 d6 d4 Nf6 Nc3 g6 Be3 Bg7 Qd2 O-O O-O-O c5"
+         data-fen="rnbq1rk1/pp2ppbp/3p1np1/2p5/3PP3/2N1B3/PPPQ1PPP/2KR1BNR w - - 0 7"
+         data-highlight="c5,d4"
+         data-arrows='[{"from":"c5","to":"d4"}]'
+         data-caption="After 6...c5 — Black's lever attacks d4 immediately. White must react; the f3 · h4 storm is stopped before it starts."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Pirc 150 Attack after 6...c5 — Black strikes d4">
+    </div>
+  </div>
+  <p class="cite">Arising from: 1.e4 d6 2.d4 Nf6 3.Nc3 g6 4.Be3 Bg7 5.Qd2 O-O 6.O-O-O</p>
+
+  <p>If White plays <strong>7.d5</strong> (closes the centre), follow with <strong>7…e6</strong> to crack it open again — never let White seal the position while you're still developing. If White plays <strong>7.dxc5</strong>, recapture with <strong>7…Qa5</strong> (attacking c3 and pressuring the c5 pawn), keeping active play on the queenside.</p>
+
+  <h2>The mistake — chasing the bishop costs you the kingside</h2>
+  <p>Many players instinctively try <strong>5…Ng4</strong> after 5.Qd2 — the idea being to trade the knight for the Be3 and remove White's dark-squared bishop. White simply retreats: <strong>6.Bg5</strong> (or 6.Bf4). Now the knight is awkwardly placed on g4 and has no useful target. Black plays <strong>6…h6</strong> to challenge the bishop, White retreats to h4, and then Black pushes <strong>7…g5</strong> to drive the bishop away. That g5 pawn is now a permanent weakness White will attack with f3 · h4 for the rest of the game.</p>
+
+  <div class="moves">5…Ng4? 6.Bg5 h6 7.Bh4 g5 8.Bg3</div>
+
+  <div class="board-wrap">
+    <div id="board-mistake"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="e4 d6 d4 Nf6 Nc3 g6 Be3 Bg7 Qd2 Ng4 Bg5 h6 Bh4 g5 Bg3"
+         data-fen="rnbqk2r/ppp1ppb1/3p3p/6p1/3PP1n1/2N3B1/PPPQ1PPP/R3KBNR b KQkq - 1 8"
+         data-highlight="g5,h6"
+         data-arrows='[{"from":"h2","to":"h4"}]'
+         data-caption="After 7...g5 — Black's kingside pawns are weakened for no material gain. White plays h4 next and the g5 pawn cannot be defended."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Pirc 150 Attack — Ng4 mistake leading to g5 kingside weakness">
+    </div>
+  </div>
+  <p class="cite">Pattern from your losses vs halberga (2025-06-01) and others · ECO B07</p>
+
+  <p>Black achieved nothing with …Ng4. The Be3 was never traded. The g5 and h6 pawns are now targets for the rest of the game. White plays 9.h4 — a move that would have been impossible if Black had castled and played …c5 instead.</p>
+
+  <h2>The universal Pirc rule on bishop trades</h2>
+  <p>The Bg7 is your most important piece. It controls d4, e5, and the long diagonal. <strong>Never voluntarily exchange it or weaken its pawn cover</strong> (...g5) unless you gain something concrete in return. In the 150 Attack, the Be3 is not a threat — it is White's way of baiting you. Ignore it. Castle. Hit d4.</p>
+  <ul>
+    <li><strong>vs 4.Be3 · 5.Qd2:</strong> O-O · c5</li>
+    <li><strong>vs 4.Nf3 · 5.Bc4:</strong> O-O · Ng4 · c5 (Lesson 2 — Bc4 is the target, not Be3)</li>
+    <li><strong>vs 4.f4 (Geller):</strong> O-O · c5 (Lesson 8 — same lever, same rule)</li>
+  </ul>
+  <p>Notice the theme: in every Pirc system, the answer includes O-O and …c5. Castle and hit d4. The bishop on g7 does its best work when it stays on g7.</p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="2">
+      <p>1. White plays 1.e4 d6 2.d4 Nf6 3.Nc3 g6 4.Be3 Bg7 5.Qd2. What is Black's correct 5th move?</p>
+      <div class="options">
+        <button type="button">Ng4 — trade the Be3 before White castles and starts the attack</button>
+        <button type="button">h6 — prevent Bg5 pinning the knight and keep options open</button>
+        <button type="button">O-O — castle first; the king is safe and …c5 follows next move</button>
+        <button type="button">c5 — hit d4 immediately without waiting for White to castle</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>2. After 5…O-O 6.O-O-O, what should Black play immediately?</p>
+      <div class="options">
+        <button type="button">c5 — attack d4 before White gets f3 and h4 rolling</button>
+        <button type="button">Ng4 — the knight is finally safe to trade the bishop now</button>
+        <button type="button">Nc6 — develop a piece before committing to a pawn break</button>
+        <button type="button">e5 — challenge the centre with the e-pawn, not the c-pawn</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="3">
+      <p>3. After 5…Ng4 6.Bg5 h6 7.Bh4 g5 8.Bg3, what did Black gain from the …Ng4 plan?</p>
+      <div class="options">
+        <button type="button">The Be3 was traded, removing White's dark-squared bishop</button>
+        <button type="button">The knight controls the g4 outpost and pressures White's centre</button>
+        <button type="button">Black's bishop on g7 gained scope with the g5 pawn advance</button>
+        <button type="button">Nothing — White kept the bishop, Black's kingside is weakened</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as Black with 1.e4 d6. If White plays 4.Be3, name the two steps before you touch a piece. After each game, note: did you play …c5 before White got h4 in?<br><br>
+    <strong>Previous:</strong> <a href="0009-petroff-long-castle.html">Lesson 9 — Petroff Classical: Long Castle First</a><br>
+    <strong>Next session:</strong> Lesson 11 — TBD based on your next leak cluster.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to walk through the …c5 line move by move, contrast it with the …Ng4 mistake, or quiz you on all three Pirc mantras from Lessons 2, 8, and 10.
+  </div>
+
+  <footer>
+    <a href="../reference/pirc-classical-plan.html">Pirc Classical plan card</a> ·
+    <a href="../reference/pirc-geller-plan.html">Pirc Geller plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. 5…Ng4 achieves nothing — White retreats with Bg5 or Bf4 and you end up pushing …g5, weakening your kingside for nothing.",
+       "Wrong. 5…h6 is a wasted tempo. White ignores it and continues with O-O-O and the kingside storm.",
+       "Correct. Castle first. The king is safe and …c5 hits d4 on the very next move before White can set up f3/h4.",
+       "Possible, but O-O first is more controlled — your king needs to be safe before you start counterplay."],
+      ["Correct. 6…c5 immediately attacks d4 before White plays f3 · g4 · h4. White must react to you for once.",
+       "Wrong. The logic that made Ng4 bad on move 5 still applies — White retreats the bishop and your …g5 weakness appears anyway.",
+       "Wrong. Development waits — the clock is ticking. Hit d4 with …c5 before White plays f3 and seals the position.",
+       "Both …c5 and …e5 can work, but …c5 is sharper and harder for White to ignore. …e5 lets White push d5 and close the centre."],
+      ["Wrong. White kept the bishop — it moved from e3 to g5, then h4, then g3. Black never captured it.",
+       "Wrong. The knight on g4 has no future. It will be driven back by f3 or simply left misplaced.",
+       "Wrong. The g5 pawn is a weakness, not a scope-opener. The g7 bishop is now exposed to h4 pressure.",
+       "Correct. Black achieved nothing. The Be3 still lives on g3. Black's g5 and h6 pawns are targets White will attack with h4 all game."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Pirc 150 Attack recipe locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play a Pirc game.' : 'Re-read the lesson and ask your teacher to compare the Ng4 and c5 lines side by side.'}`;
+          }
+        });
+      });
+    });
+  </script>
+  <script src="../reference/lesson-nav.js"></script>
+</body>
+</html>
