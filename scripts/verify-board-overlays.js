@@ -126,7 +126,7 @@ async function main() {
 
   try {
     await waitForServer(`http://127.0.0.1:${PORT}/`);
-    const browser = await chromium.launch({ headless: true });
+    const browser = await chromium.launch({ headless: true, executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined });
     const page = await browser.newPage({ viewport: { width: 900, height: 1200 } });
 
     let failed = 0;

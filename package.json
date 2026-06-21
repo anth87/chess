@@ -6,7 +6,8 @@
     "verify-boards": "node scripts/verify-lesson-boards.js",
     "verify-overlays": "node scripts/verify-board-overlays.js",
     "verify-lessons": "node scripts/verify-lesson-boards.js && node scripts/verify-board-semantics.js && node scripts/verify-board-overlays.js",
-    "fen": "node scripts/fen-from-moves.js"
+    "fen": "node scripts/fen-from-moves.js",
+    "generate-favicon": "node scripts/generate-favicon.js"
   },
   "keywords": [],
   "author": "",
