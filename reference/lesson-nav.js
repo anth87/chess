@@ -9,7 +9,8 @@
     { file: '0005-philidor-exchange-kingside-storm.html', num: 5, title: 'Philidor Exchange' },
     { file: '0006-berlin-zukertort-centre-first.html', num: 6, title: 'Berlin / Zukertort' },
     { file: '0007-caro-tartakower-long-castle.html', num: 7, title: 'Caro-Kann Tartakower' },
-    { file: '0008-pirc-geller-strike-c5.html', num: 8, title: 'Pirc Geller' }
+    { file: '0008-pirc-geller-strike-c5.html', num: 8, title: 'Pirc Geller' },
+    { file: '0009-petroff-long-castle.html', num: 9, title: 'Petroff Classical' }
   ];
 
   var EXTRA = [
@@ -46,6 +47,7 @@
       return '../' + file;
     }
     if (zone === 'reference') return file;
+    if (zone === 'lessons') return '../reference/' + file;
     return 'reference/' + file;
   }
 
