@@ -72,6 +72,16 @@ Common semantic errors to avoid (all blocked the user’s learning):
 - **Illegal move strings** (missing capture symbol, wrong castling side)
 - **White/black orientation flip** making arrows appear mirrored to the reader
 
+## Mandatory: update the leak map for every new lesson
+
+When publishing a new lesson, always add it to the **Lesson queue** ordered list in `reference/leak-map.html` before announcing the lesson to the user:
+
+```html
+<li><a href="../lessons/000N-slug.html">Opening — short mantra</a></li>
+```
+
+Also add the lesson to the `LESSONS` array in `reference/lesson-nav.js` so it appears in the sidebar.
+
 ## Mandatory verification (run all three)
 
 From workspace root:
