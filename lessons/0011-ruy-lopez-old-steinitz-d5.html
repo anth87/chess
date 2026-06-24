@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 11 — Ruy Lopez vs Old Steinitz: d5 on …Nh7</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+    .board-error {
+      color: var(--wrong);
+      font-size: 0.9rem;
+      padding: 1rem;
+      border: 1px solid var(--wrong);
+      border-radius: 4px;
+      background: #fdf0f0;
+    }
+  </style>
+  <link rel="stylesheet" href="../reference/lesson-nav.css">
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 11 · Ruy Lopez as White</p>
+  <h1>Ruy Lopez vs Old Steinitz: d5 When Black Plays …Nh7</h1>
+  <p class="meta">~10 min · One fix: close the centre the moment Black's knight heads for g5</p>
+
+  <h2>Why this lesson exists</h2>
+  <p>Your 12-month records show <strong>11+ White losses to the Ruy Lopez Old Steinitz</strong> (3...d6, ECO C62). Two recent losses — vs kretenkonj (1749, 2026-06-19) and vs annapurna317 (1870, 2026-02-27) — followed the <em>identical</em> pattern: Black played <strong>…Nh7</strong>, you played a passive queen move, Black went to g5, the d4 pawn fell, and your attack never materialised. The same game, played twice.</p>
+  <p>Your opening setup — h3, O-O, c3, Re1, d4 — is fine. The leak is a single decision on move 13.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Case study: <a href="https://www.chess.com/game/live/170441155858">vs kretenkonj 2026-06-19</a> and <a href="https://www.chess.com/game/live/165259058118">vs annapurna317 2026-02-27</a> · ECO C62</p>
+
+  <h2>The trigger and the mantra</h2>
+  <p>After 1.e4 e5 2.Nf3 Nc6 3.Bb5 d6 4.h3 Bd7 5.O-O Nf6 6.Re1 Be7 7.c3 O-O 8.d4 exd4 9.cxd4 a6 10.Ba4 b5 11.Bc2 h6 12.a3, Black plays <strong>12...Nh7</strong>. Name this move when you see it. The knight is heading to g5 to attack d4.</p>
+
+  <div class="insight">
+    <strong>d5 on …Nh7.</strong> The moment Black plays …Nh7, close the centre with <strong>13.d5</strong>. Ng5 now has no target. Follow with <strong>14.Nd2</strong> to regroup, then <strong>f4</strong> for the kingside push. Do not play Qd3, Ne3, or any other move — the knight is already heading to g5 and Qd3 does not stop it.
+  </div>
+
+  <h2>The correct response — close with d5</h2>
+
+  <div class="moves">12...Nh7 <strong>13.d5!</strong> — then 14.Nd2 · f4</div>
+
+  <div class="board-wrap">
+    <div id="board-correct"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 e5 Nf3 Nc6 Bb5 d6 h3 Bd7 O-O Nf6 Re1 Be7 c3 O-O d4 exd4 cxd4 a6 Ba4 b5 Bc2 h6 a3 Nh7 d5"
+         data-fen="r2q1rk1/2pbbppn/p1np3p/1p1P4/4P3/P4N1P/1PB2PP1/RNBQR1K1 b - - 0 13"
+         data-highlight="d5,c6,f4"
+         data-arrows='[{"from":"b1","to":"d2"}]'
+         data-caption="After 13.d5 — centre locked; Ng5 has no target. White plays &lt;strong&gt;Nd2&lt;/strong&gt; next, then &lt;strong&gt;f4&lt;/strong&gt; for the kingside advance."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Ruy Lopez Old Steinitz after 13.d5 — correct plan with Nd2 and f4">
+    </div>
+  </div>
+  <p class="cite">Arising from: 1.e4 e5 2.Nf3 Nc6 3.Bb5 d6 4.h3 Bd7 5.O-O Nf6 6.Re1 Be7 7.c3 O-O 8.d4 exd4 9.cxd4 a6 10.Ba4 b5 11.Bc2 h6 12.a3 Nh7 <strong>13.d5!</strong></p>
+
+  <p>After 13.d5, Black's Nc6 must retreat — it is now out of play (Na5 or Nb8, both passive). The Nh7 has nowhere useful to go. White plays <strong>14.Nbd2</strong> to prepare the f-pawn, then <strong>15.f4</strong> — a standard King's Indian–style kingside march where White has the space and Black's pieces are misplaced. Black has no counterplay because the centre is closed.</p>
+
+  <h2>The mistake — allowing …Ng5</h2>
+  <p>In both losses, White played <strong>13.Qd3</strong> — a developing move that <em>looks</em> like it defends d4 (the queen eyes d4 from d3). But it does not stop …Ng5. Black immediately plays <strong>13...Ng5</strong>, White trades knights with <strong>14.Nxg5 Bxg5</strong>, and now the Bg5 puts long-term pressure on d4 that the queen cannot neutralise. White panics with <strong>15.e5</strong>, but after <strong>15...g6 16.exd6 cxd6</strong>, the d4 pawn is simply hanging.</p>
+
+  <div class="moves">13.Qd3? 13...Ng5 14.Nxg5 Bxg5 15.e5 g6 16.exd6 cxd6</div>
+
+  <div class="board-wrap">
+    <div id="board-mistake"
+         class="chesscom-board"
+         data-orientation="white"
+         data-moves="e4 e5 Nf3 Nc6 Bb5 d6 h3 Bd7 O-O Nf6 Re1 Be7 c3 O-O d4 exd4 cxd4 a6 Ba4 b5 Bc2 h6 a3 Nh7 Qd3 Ng5 Nxg5 Bxg5 e5 g6 exd6 cxd6"
+         data-fen="r2q1rk1/3b1p2/p1np2pp/1p4b1/3P4/P2Q3P/1PB2PP1/RNB1R1K1 w - - 0 17"
+         data-highlight="d4,c6"
+         data-arrows='[{"from":"c6","to":"d4"}]'
+         data-caption="After 16...cxd6 — d4 is indefensible. Black plays &lt;strong&gt;17...Nxd4&lt;/strong&gt;, winning a central pawn with active pieces."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Ruy Lopez Old Steinitz — mistake: d4 pawn falls after allowing Ng5">
+    </div>
+  </div>
+
+  <p>The e5 push achieved nothing: Black recaptured with cxd6 (not dxe5, which would lose a pawn) and d4 now hangs with no repair. In the game vs kretenkonj, the game continued 17.b4 Bf5 18.Qb3 Bxc2 19.Qxc2 Nxd4 — the knight eventually won d4, Black dominated with active pieces, and White resigned on move 33. Same outcome vs annapurna317, checkmated on move 29.</p>
+
+  <h2>Why Qd3 fails and d5 works</h2>
+  <p>The key difference: <strong>d5 removes the tactical point of …Ng5.</strong> Once the centre is closed with d5, Ng5 has nothing to attack — d4 no longer exists as a target. The knight on h7 is just a misplaced piece.</p>
+  <p>Qd3 fails because the queen on d3 looks like it defends d4, but the knight goes to g5 <em>first</em> before attacking d4. After the trade (Nxg5 Bxg5), d4 is under long-term structural pressure from the bishop on g5 plus the Nc6. The queen alone cannot hold it against two well-placed pieces.</p>
+
+  <ul>
+    <li><strong>Trigger:</strong> Black plays …Nh7</li>
+    <li><strong>Response:</strong> d5 immediately — no other move</li>
+    <li><strong>Follow-up:</strong> Nd2, f4, kingside storm</li>
+    <li><strong>Never:</strong> Qd3 or Ne3 (passive; allow …Ng5)</li>
+  </ul>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="1">
+      <p>1. After 12...Nh7 in the Old Steinitz, what should White play on move 13?</p>
+      <div class="options">
+        <button type="button">Qd3 — develop the queen and defend d4 at the same time</button>
+        <button type="button">d5 — close the centre before the knight reaches g5</button>
+        <button type="button">h4 — physically prevent the knight from going to g5</button>
+        <button type="button">Nbd2 — develop the knight before committing any pawn</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>2. After 13.d5, what is White's plan in the next two moves?</p>
+      <div class="options">
+        <button type="button">Nd2 then f4 — regroup the knight and launch the kingside attack</button>
+        <button type="button">Ne5 then f4 — post the knight centrally before attacking</button>
+        <button type="button">a4 then c4 — attack Black's queenside pawns while the centre is closed</button>
+        <button type="button">Nxe5 then f4 — immediately win a pawn before Black organises</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="1">
+      <p>3. After 13.Qd3 Ng5 14.Nxg5 Bxg5 15.e5 g6 16.exd6 cxd6, why is White's position lost?</p>
+      <div class="options">
+        <button type="button">Because Black plays ...dxe5 next, winning a pawn and opening lines</button>
+        <button type="button">Because d4 is hanging and cannot be defended against ...Nxd4</button>
+        <button type="button">Because Black's Bg5 pins the Qd3 to the king along the d-file</button>
+        <button type="button">Because 15.e5 allowed Black to play ...Nd4 on the previous move</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games with 1.e4 e5 2.Nf3 Nc6 3.Bb5. If Black plays 3...d6 and later …Nh7, name "d5" before you touch a piece. After each game, note: did you close with d5 or drift to Qd3?<br><br>
+    <strong>Previous:</strong> <a href="0010-pirc-150-attack-castle-c5.html">Lesson 10 — Pirc 150 Attack: castle first, then …c5</a><br>
+    <strong>Next session:</strong> Lesson 12 — TBD based on your next leak cluster.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to walk through the d5 plan move by move, compare it with Qd3 line, or quiz you on all the White opening mantras from Lessons 4–11.
+  </div>
+
+  <footer>
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Wrong. Qd3 looks like it defends d4, but it doesn't stop ...Ng5. After the knight trade and Bxg5, the bishop keeps long-term pressure on d4 that the queen alone cannot handle.",
+       "Correct. d5 closes the centre before Ng5 has a target. The knight on h7 is now misplaced, and White follows with Nd2 · f4.",
+       "Wrong. h4 doesn't control g5 — the knight can still jump to g5 from h7 despite the h4 pawn.",
+       "Wrong. Nbd2 is the right follow-up after d5, but you cannot delay the critical d5 move itself — by then ...Ng5 has already come."],
+      ["Correct. Nd2 regroupes the b1 knight toward d2, freeing f3 and preparing f4. This is the standard King's Indian attack structure with a space advantage.",
+       "Wrong. Ne5 has no good square after d5 — the e5 pawn does not exist in this position (Black's e5 was captured on move 8).",
+       "Wrong. Queenside expansion is too slow. Black can reorganise and you waste the space advantage d5 gave you.",
+       "Wrong. There is no piece on e5 to capture — e5 is empty after exd4 on move 8."],
+      ["Wrong. After 15.e5, Black does not play ...dxe5 — that would drop a pawn (16.Nxe5 forks). Black plays 15...g6 instead.",
+       "Correct. After 16...cxd6, d4 is undefended and ...Nxd4 wins the pawn. White's queen on d3 cannot defend against both the Nc6 and the Bg5.",
+       "Wrong. The Bg5 is not pinning the queen to the king — the queen is on d3 and the king on g1, not on the same diagonal.",
+       "Wrong. The sequence is 15.e5 g6 16.exd6 cxd6 — ...Nd4 did not appear on the previous move."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? 'Old Steinitz trigger locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra, then play a Ruy Lopez game.' : 'Re-read the lesson and ask your teacher to compare d5 vs Qd3 move by move.'}`;
+          }
+        });
+      });
+    });
+  </script>
+  <script src="../reference/lesson-nav.js"></script>
+</body>
+</html>

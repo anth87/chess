@@ -11,7 +11,8 @@
     { file: '0007-caro-tartakower-long-castle.html', num: 7, title: 'Caro-Kann Tartakower' },
     { file: '0008-pirc-geller-strike-c5.html', num: 8, title: 'Pirc Geller' },
     { file: '0009-petroff-long-castle.html', num: 9, title: 'Petroff Classical' },
-    { file: '0010-pirc-150-attack-castle-c5.html', num: 10, title: 'Pirc 150 Attack' }
+    { file: '0010-pirc-150-attack-castle-c5.html', num: 10, title: 'Pirc 150 Attack' },
+    { file: '0011-ruy-lopez-old-steinitz-d5.html', num: 11, title: 'Ruy Lopez Old Steinitz' }
   ];
 
   var EXTRA = [
