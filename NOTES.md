@@ -30,3 +30,4 @@
 - **2026-06-13**: Lesson 3 created — KID Samisch don't bite on g4 (…e5 · …Nc5 · …h6 · …b5 mantra), case study vs irerie (169729761620). `verify-board-overlays.js` generalized to scan all lessons.
 - **2026-06-13**: Lesson 4 created — Owen's long castle first (Be3 · Qd2 · O-O-O · Bb5 mantra), contrast win vs ssharipov (165392932390) vs loss vs jirias (169388691554).
 - **2026-06-13**: Added `.grok/skills/chess-lesson-boards` skill + `verify-board-semantics.js` — mandatory 3-step verification (FEN, semantics, browser overlays) before publishing lesson boards.
+- **2026-06-28**: Pulled 16 commits from origin/main (Lessons 9–11, teach skill, deploy workflow). Refreshed 12-month leak map (1,674 games). Lesson 12: Pirc 2.Bc4 castle first (g6 · Bg7 · O-O), case studies petermau3 win / kareem702 loss.

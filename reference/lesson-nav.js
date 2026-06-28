@@ -12,7 +12,8 @@
     { file: '0008-pirc-geller-strike-c5.html', num: 8, title: 'Pirc Geller' },
     { file: '0009-petroff-long-castle.html', num: 9, title: 'Petroff Classical' },
     { file: '0010-pirc-150-attack-castle-c5.html', num: 10, title: 'Pirc 150 Attack' },
-    { file: '0011-ruy-lopez-old-steinitz-d5.html', num: 11, title: 'Ruy Lopez Old Steinitz' }
+    { file: '0011-ruy-lopez-old-steinitz-d5.html', num: 11, title: 'Ruy Lopez Old Steinitz' },
+    { file: '0012-pirc-bc4-castle-first.html', num: 12, title: 'Pirc 2.Bc4' }
   ];
 
   var EXTRA = [

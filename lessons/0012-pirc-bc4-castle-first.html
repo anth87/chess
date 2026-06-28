@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 12 — Pirc vs 2.Bc4: Castle First</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../reference/vendor/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="../reference/chess-com-board.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2d5a27;
+      --bg: #faf9f7;
+      --border: #e0ddd6;
+      --correct: #2d5a27;
+      --wrong: #8b2e2e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.65rem; font-weight: 600; line-height: 1.25; }
+    .meta { color: var(--muted); font-size: 0.88rem; margin: 0.4rem 0 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1rem; }
+    .mission-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .board-wrap {
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .moves {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .insight strong { color: var(--accent); }
+    ul { margin: 0 0 1rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    .cite { font-size: 0.82rem; color: var(--muted); }
+    .cite a { color: var(--accent); }
+    .quiz { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .quiz h2 { margin-top: 0; }
+    .question { margin: 1.5rem 0; }
+    .question p { font-weight: 600; margin-bottom: 0.75rem; }
+    .options { display: grid; gap: 0.5rem; }
+    .options button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover:not(:disabled) { border-color: var(--accent); }
+    .options button.correct { border-color: var(--correct); background: #f0f7ef; color: var(--correct); }
+    .options button.wrong { border-color: var(--wrong); background: #fdf0f0; color: var(--wrong); }
+    .options button:disabled { cursor: default; opacity: 0.85; }
+    .feedback { font-size: 0.88rem; margin-top: 0.5rem; min-height: 1.4rem; }
+    .score { margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted); }
+    .next, .teacher {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .teacher { background: #fff8e7; border: none; }
+    footer { margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); }
+    a { color: var(--accent); }
+  </style>
+  <link rel="stylesheet" href="../reference/lesson-nav.css">
+</head>
+<body>
+
+  <p class="mission-tag">Lesson 12 · Pirc 2.Bc4 as Black</p>
+  <h1>Pirc vs 2.Bc4: Castle First</h1>
+  <p class="meta">~10 min · One tangible win: get the king safe before passive …c6 or …h6/…g5</p>
+
+  <h2>Where you are now</h2>
+  <p>Lessons 1–11 covered every opening cluster from your original leak map. A fresh <strong>12-month pull</strong> (1,674 blitz games) shows <strong>Pirc 2.Bc4</strong> as the largest gap left — <strong>15 losses</strong> in the <strong>1.e4 d6 2.Bc4</strong> branch. Lessons 2, 8, and 10 fixed Classical, Geller, and 150 Attack; this lesson closes the fourth major White system against your Pirc.</p>
+  <p class="cite">Data: <a href="../reference/leak-map.html">leak map</a> · Refreshed 2026-06-28 · Line: <a href="https://www.chess.com/openings/Pirc-Defense-2.Bc4-Nf6">Chess.com — Pirc 2.Bc4</a></p>
+
+  <h2>Your 3-step mantra (3+0)</h2>
+  <div class="insight">
+    <strong>g6 · Bg7 · O-O.</strong> Fianchetto, then castle on move 5 when White plays <strong>5.Bg5</strong>. Do not play …c6 first — it blocks your bishop and leaves the king in the centre. Save …c5 for later (same lever as Lessons 2, 8, 10). Never chase Bg5 with …h6/…g5.
+  </div>
+  <p>Keep the card: <a href="../reference/pirc-bc4-plan.html">Pirc 2.Bc4 plan card</a>.</p>
+
+  <h2>The recipe that worked — your win vs petermau3</h2>
+  <div class="moves">3…g6 4…Bg7 5…<strong>O-O</strong></div>
+
+  <div class="board-wrap">
+    <div id="board-win"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="e4 d6 Bc4 Nf6 d3 g6 Nf3 Bg7 Bg5 O-O"
+         data-fen="rnbq1rk1/ppp1ppbp/3p1np1/6B1/2B1P3/3P1N2/PPP2PPP/RN1QK2R w KQ - 4 6"
+         data-highlight="g8,g7,f8"
+         data-caption="After &lt;strong&gt;5…O-O&lt;/strong&gt; — king safe, Bg7 breathing. White has no kingside hook yet."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Pirc 2.Bc4 after 5...O-O in anth87 win vs petermau3">
+    </div>
+  </div>
+  <p class="cite">Position from your win vs petermau3 · <a href="https://www.chess.com/game/live/170769132128">2026-06-27</a> · verified via chess.js</p>
+
+  <p>You castled before touching the centre. White traded on g4, you recaptured with the queen, and later found …c5 and …f5 — active play from a safe king, not a crumbling kingside.</p>
+
+  <h2>Mistake #1 — …c6 before castling</h2>
+  <p>In <strong>turay24</strong> and <strong>asifanwaruk</strong> you played <strong>5…c6</strong> (or <strong>6…c6</strong>) while the king still sat on e8. …c6 looks solid but it blocks your Bg7 from influencing d4/e5 and delays castling. White finishes development with tempo while your king is stuck.</p>
+
+  <div class="board-wrap">
+    <div id="board-c6"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="e4 d6 Bc4 Nf6 d3 g6 Bg5 Bg7 Nc3 c6"
+         data-fen="rnbqk2r/pp2ppbp/2pp1np1/6B1/2B1P3/2NP4/PPP2PPP/R2QK1NR w KQkq - 0 6"
+         data-highlight="c6,e8,g7"
+         data-caption="After &lt;strong&gt;5…c6&lt;/strong&gt; — the d6 pawn chain blocks your Bg7. Play &lt;strong&gt;5…O-O&lt;/strong&gt; instead."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Pirc 2.Bc4 passive 5...c6 mistake">
+    </div>
+  </div>
+  <p class="cite">Pattern from your games vs turay24 and asifanwaruk · ECO B07</p>
+
+  <h2>Mistake #2 — chasing Bg5 with …h6/…g5</h2>
+  <p>When White plays <strong>3.Bxf7+</strong> (the Fried Liver trick), taking on f7 is fine — but then you must develop fast with …Nc6 and …Bg7. In your <strong>loss vs kareem702</strong> you chased the bishop with <strong>…h6</strong> and <strong>…g5</strong>. White kept the pair, opened the h-file, and your king never found safety.</p>
+
+  <div class="board-wrap">
+    <div id="board-h6g5"
+         class="chesscom-board"
+         data-orientation="black"
+         data-moves="e4 d6 Bc4 Nf6 Bxf7 Kxf7 c3 Nc6 Nf3 g6 Qb3 e6 d4 Bg7 Bg5 h6 Bh4 g5 Bg3"
+         data-fen="r1bq3r/ppp2kb1/2nppn1p/6p1/3PP3/1QP2NB1/PP3PPP/RN2K2R b KQ - 1 10"
+         data-highlight="h6,g5,g7"
+         data-caption="After &lt;strong&gt;9…g5&lt;/strong&gt; — kingside pawns are fixed weaknesses. Develop with …Bg7 and …O-O instead."
+         data-piece-path="../reference/pieces/wikipedia/{piece}.png"
+         aria-label="Pirc Bxf7 line after h6 g5 kingside weakening">
+    </div>
+  </div>
+  <p class="cite">Position from your loss vs kareem702 · <a href="https://www.chess.com/game/live/170451538124">2026-06-20</a> · verified via chess.js</p>
+
+  <p class="cite">Primary reading: <a href="https://thechessworld.com/articles/openings/pirc-defense-complete-guide-for-black/">TheChessWorld — Pirc complete guide</a> (early …g6/…Bg7 section)</p>
+
+  <section class="quiz" id="quiz">
+    <h2>Retrieval practice</h2>
+    <p style="font-weight: normal; color: var(--muted); font-size: 0.9rem;">Answer from memory. All options are the same length.</p>
+
+    <div class="question" data-answer="0">
+      <p>1. After 2.Bc4 Nf6 3.d3 g6 4.Nf3 Bg7 5.Bg5, what is Black's best move?</p>
+      <div class="options">
+        <button type="button">Castle kingside now before any pawn moves hit the centre</button>
+        <button type="button">Push c6 immediately to hold d5 and block the c4 bishop</button>
+        <button type="button">Pin the f3 knight with Bg4 before castling your king away</button>
+        <button type="button">Chase the g5 bishop with h6 and g5 to drive it back</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>2. Why is 5…c6 a mistake in this line?</p>
+      <div class="options">
+        <button type="button">c6 blocks your Bg7 and leaves the king stuck in the centre</button>
+        <button type="button">c6 is always wrong in every Pirc line no matter what White plays</button>
+        <button type="button">c6 helps you fight for e5 and opens lines for your queen</button>
+        <button type="button">c6 should be played before Nf6 to stop the e4 pawn advance</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question" data-answer="0">
+      <p>3. If White plays 3.Bxf7+ Kxf7, what should you avoid after Bg5?</p>
+      <div class="options">
+        <button type="button">h6 and g5 chase the bishop but permanently weaken your kingside</button>
+        <button type="button">Take the bishop immediately with Nxf3 before fianchettoing the bishop</button>
+        <button type="button">Play Kg8 to escape the pin on your king on the f7 square</button>
+        <button type="button">Push e5 at once to open the centre while your king is exposed</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <p class="score" id="score"></p>
+  </section>
+
+  <div class="next">
+    <strong>Homework:</strong> Play 3 blitz games as Black; if you see 2.Bc4, name "g6 · Bg7 · O-O" before move 6. Review one 2.Bc4 game and check whether you castled before …c6.<br><br>
+    <strong>Previous:</strong> <a href="0011-ruy-lopez-old-steinitz-d5.html">Lesson 11 — Ruy Lopez Old Steinitz: d5 on …Nh7</a><br>
+    <strong>Next session:</strong> French Normal as White or KID Fianchetto — your choice after homework.
+  </div>
+
+  <div class="teacher">
+    <strong>Your teacher is here.</strong> Ask me to compare all four Pirc systems (Lessons 2, 8, 10, 12), drill …O-O vs …c6 timing, or walk through the Bxf7+ line move by move.
+  </div>
+
+  <footer>
+    <a href="../reference/pirc-bc4-plan.html">Pirc 2.Bc4 plan card</a> ·
+    <a href="../reference/leak-map.html">Leak map</a> ·
+    <a href="../reference/cct-checklist.html">CCT checklist</a> ·
+    <a href="../MISSION.md">Mission</a>
+  </footer>
+
+  <script src="../reference/vendor/jquery-3.7.1.min.js"></script>
+  <script src="../reference/vendor/chessboard-1.0.0.min.js"></script>
+  <script type="module" src="../reference/init-boards.mjs"></script>
+  <script>
+    const allExplanations = [
+      ["Correct. 5…O-O is your petermau3 template — king safe before counterplay.",
+       "Wrong. …c6 blocks Bg7 and delays castling — play O-O first.",
+       "Wrong. Bg4 can wait; castling is urgent vs Bg5.",
+       "Wrong. …h6/…g5 is the kareem702 mistake — never chase Bg5."],
+      ["Correct. …c6 locks your bishop and leaves the king in the centre.",
+       "Wrong. …c6 can work later — the issue is playing it before O-O.",
+       "Wrong. …c6 does not open lines; it blocks your Bg7.",
+       "Wrong. You already played …Nf6 on move 2."],
+      ["Correct. …h6/…g5 weakens the kingside permanently for no gain.",
+       "Wrong. Develop with …Nc6 and …Bg7 — do not chase the bishop.",
+       "Wrong. …Kg8 wastes time; develop pieces and castle instead.",
+       "Wrong. …e5 with the king on f7 is too risky — develop first."]
+    ];
+
+    let answered = 0, correct = 0;
+    document.querySelectorAll('.question').forEach((q, qi) => {
+      const answer = parseInt(q.dataset.answer, 10);
+      const feedback = q.querySelector('.feedback');
+      const buttons = q.querySelectorAll('button');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          buttons.forEach(b => b.disabled = true);
+          const isCorrect = i === answer;
+          if (isCorrect) { btn.classList.add('correct'); correct++; }
+          else { btn.classList.add('wrong'); buttons[answer].classList.add('correct'); }
+          feedback.textContent = allExplanations[qi][i];
+          feedback.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
+          answered++;
+          if (answered === 3) {
+            document.getElementById('score').textContent =
+              `Score: ${correct}/3 — ${correct === 3 ? '2.Bc4 plan locked in. Play it tonight.' : correct >= 2 ? 'Good. Re-read the mantra box, then play one 2.Bc4.' : 'Re-read the lesson and ask your teacher to drill O-O vs c6.'}`;
+          }
+        });
+      });
+    });
+  </script>
+  <script src="../reference/lesson-nav.js"></script>
+</body>
+</html>

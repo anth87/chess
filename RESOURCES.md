@@ -29,6 +29,9 @@
 - [TheChessWorld: Pirc Defense — complete guide for Black](https://thechessworld.com/articles/openings/pirc-defense-complete-guide-for-black/)
   Strategic overview of Classical and Modern systems. Use for: understanding why …c5 and …Ng4 matter vs Bc4.
 
+- [Chess.com: Pirc Defense — 2.Bc4](https://www.chess.com/openings/Pirc-Defense-2.Bc4-Nf6)
+  Your largest uncovered Black leak cluster (15 losses in 12 mo). Use for: Lesson 12 on …g6/…Bg7/…O-O vs passive …c6.
+
 - [Chess.com: Learn Chess — Checks, Captures, Threats](https://www.chess.com/lessons/learn-chess/capture-pieces)
   Foundational CCT framing. Use for: blunder-check habit in Lesson 1.
 
