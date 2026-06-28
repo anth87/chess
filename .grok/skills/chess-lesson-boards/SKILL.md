@@ -91,6 +91,12 @@ When publishing a new lesson, update **all three** before announcing it to the u
    { file: '000N-slug.html', num: N, title: 'Short Title' }
    ```
 
+4. **Bump the nav cache-buster** so browsers fetch the updated sidebar (not a stale copy):
+   ```bash
+   node scripts/bump-nav-cache.js
+   ```
+   This rewrites every `lesson-nav.js` script tag to `lesson-nav.js?v=N` where N is the new lesson number.
+
 ## Mandatory verification (run all three)
 
 From workspace root:

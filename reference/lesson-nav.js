@@ -101,6 +101,11 @@
     list.appendChild(li);
   });
 
+  var activeLink = list.querySelector('a.is-active');
+  if (activeLink) {
+    activeLink.scrollIntoView({ block: 'nearest' });
+  }
+
   var extra = document.createElement('div');
   extra.className = 'lesson-nav-extra';
 
